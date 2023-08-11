@@ -1,0 +1,39 @@
+<nav class="navbar bg-body-tertiary bg-primary-light shadow">
+  <div class="d-flex">
+    <a
+      routerLinkActive="ma-classe-active"
+      [routerLink]="['home']"
+      class="navbar-brand"
+      ><img src="assets/images/RainbowDB.png" alt=""
+    /></a>
+  </div>
+  <div class="justify-content-end">
+    <ul class="nav">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          aria-current="page"
+          routerLinkActive="ma-classe-active"
+          [routerLink]="['Arc-en-ciel']"
+          >l'Arc-en-ciel</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLinkActive="ma-classe-active"
+          [routerLink]="['Contactez-nous']"
+          >Contactez-nous</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLinkActive="ma-classe-active"
+          [routerLink]="['Connexion']"
+          >Connexion</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
