@@ -10,6 +10,10 @@ import { ArcEnCielComponent } from './pages/arc-en-ciel/arc-en-ciel.component';
 import { ContactezNousComponent } from './pages/contactez-nous/contactez-nous.component';
 import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { FootbarComponent } from './components/footbar/footbar.component';
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
+import { CouleurListComponent } from './components/couleur-list/couleur-list.component';
+import { CardsComponent } from './components/cards/cards.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 
@@ -23,6 +27,10 @@ import { FootbarComponent } from './components/footbar/footbar.component';
     ContactezNousComponent,
     ConnexionComponent,
     FootbarComponent,
+    FilterBarComponent,
+    CouleurListComponent,
+    CardsComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
