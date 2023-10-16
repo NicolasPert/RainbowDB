@@ -3,3 +3,8 @@
     color: grey;
     border: 1px solid grey;
 }
+
+.custom-side-bar {
+    margin: 0;
+    padding: 15px;
+}

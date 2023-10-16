@@ -8,15 +8,19 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { PageHomeComponent } from './pages/page-home/page-home.component';
 import { ArcEnCielComponent } from './pages/arc-en-ciel/arc-en-ciel.component';
 import { ContactezNousComponent } from './pages/contactez-nous/contactez-nous.component';
-import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { FootbarComponent } from './components/footbar/footbar.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
-import { CouleurListComponent } from './components/couleur-list/couleur-list.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-
-
-
+import { MentionLegalComponent } from './components/mention-legal/mention-legal.component';
+import { EnregistrerComponent } from './components/enregistrer/enregistrer.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { AdminComponent } from './pages/admin/admin.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { AjouterComponent } from './components/ajouter-characters/ajouter-characters.component';
+import { ModifierComponent } from './components/modifier/modifier.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,15 +32,22 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ConnexionComponent,
     FootbarComponent,
     FilterBarComponent,
-    CouleurListComponent,
     CardsComponent,
     SearchBarComponent,
+    MentionLegalComponent,
+    EnregistrerComponent,
+    AdminComponent,
+    AjouterComponent,
+    ModifierComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    NgSelectModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

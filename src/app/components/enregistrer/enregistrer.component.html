@@ -1,0 +1,135 @@
+<section class="text-center text-lg-start">
+  <div class="container py-4">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-5 mb-5 mb-lg-0">
+        <div
+          class="card cascading-right"
+          style="
+            background: hsla(0, 0%, 100%, 0.55);
+            backdrop-filter: blur(30px);
+            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+          "
+        >
+          <div class="card-body p-5 shadow-5 text-center text-color">
+            <h2 class="mb-5">Enregistrez-vous</h2>
+            <form #inscription="ngForm" (ngSubmit)="inscrire(inscription)">
+              <div class="form-group mb-3">
+                <input
+                  id="nameInput"
+                  type="text"
+                  required
+                  class="form-control shadow-sm"
+                  [(ngModel)]="user.username"
+                  name="username"
+                  #username="ngModel"
+                  [class.input-error]="username.invalid && isFormSubmit"
+                  placeholder="Pseudo"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <input
+                  type="email"
+                  required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                  class="form-control shadow-sm"
+                  [(ngModel)]="user.email"
+                  name="email"
+                  #email="ngModel"
+                  [class.input-error-email]="!inscriptionOK"
+                  [class.input-error]="email.invalid && isFormSubmit"
+                  placeholder="mon@email.fr"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <input
+                  type="password"
+                  required
+                  pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
+                  class="form-control shadow-sm"
+                  [(ngModel)]="user.password"
+                  name="password"
+                  #password="ngModel"
+                  [class.input-error]="password.invalid && isFormSubmit"
+                  placeholder="Mot de passe *"
+                />
+                <div *ngIf="password.invalid && isFormSubmit" class="alert">
+                  <div *ngIf="password.errors?.['required']">
+                    Le mot de passe est obligatoire.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <input
+                  type="password"
+                  required
+                  class="form-control shadow-sm"
+                  [(ngModel)]="user.password_validate"
+                  name="password_validate"
+                  #password="ngModel"
+                  [class.input-error]="
+                    user.password !== user.password_validate && isFormSubmit
+                  "
+                  placeholder="Confirmez votre mot de passe"
+                />
+                <div
+                  *ngIf="
+                    user.password !== user.password_validate && isFormSubmit
+                  "
+                  class="alert"
+                >
+                  <div class="errorConfirme">
+                    Les mots de passe ne correspondent pas.
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p
+                  style="
+                    font-size: 0.6rem;
+                    padding-left: 0.3rem;
+                    margin-bottom: 0;
+                  "
+                >
+                  *12 caract. mini dont 1 maj., 1 chiffre et 1 symbole
+                </p>
+              </div>
+              <div class="errorMdp" *ngIf="password.errors?.['pattern']">
+                Au moins 12 caractères, 1 majuscule, 1 chiffre et 1 symbole.
+              </div>
+              <div *ngIf="!inscriptionOK" class="alert">
+                Cet email est déjà utilisé.
+              </div>
+              <div *ngIf="username.invalid && isFormSubmit" class="alert">
+                <div *ngIf="username.errors?.['required']">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block mb-4">
+                S'enregistrer
+              </button>
+            </form>
+
+            <div class="lienConnexion">
+              <div *ngIf="email.invalid && isFormSubmit" class="alert">
+                <div *ngIf="email.errors?.['required']">
+                  L'email est obligatoire.
+                </div>
+                <div *ngIf="email.errors?.['pattern']">
+                  Veuillez entrer une adresse email valide.
+                </div>
+              </div>
+              <p>
+                Déjà un compte ?
+                <a [routerLink]="['../connect']">Connectez-vous</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

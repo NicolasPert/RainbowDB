@@ -1,4 +1,8 @@
 .containerComponent {
     display: flex;
-    gap: 20px;
+    gap: 4rem;
+}
+
+.filter {
+    justify-content: flex-start;
 }

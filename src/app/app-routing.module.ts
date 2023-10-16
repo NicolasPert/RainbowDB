@@ -4,14 +4,18 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { PageHomeComponent } from './pages/page-home/page-home.component';
 import { ArcEnCielComponent } from './pages/arc-en-ciel/arc-en-ciel.component';
 import { ContactezNousComponent } from './pages/contactez-nous/contactez-nous.component';
-import { ConnexionComponent } from './pages/connexion/connexion.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { EnregistrerComponent } from './components/enregistrer/enregistrer.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: "home", component: PageHomeComponent},
-  { path: "arc-en-ciel", component: ArcEnCielComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: PageHomeComponent },
+  { path: 'arc-en-ciel', component: ArcEnCielComponent },
+  { path: 'admin', component: AdminComponent},
   { path: 'Contactez-nous', component: ContactezNousComponent },
-  { path: 'Connexion', component: ConnexionComponent },
+  { path: 'Inscrire', component: EnregistrerComponent },
+  { path: 'connect', component: ConnexionComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 
