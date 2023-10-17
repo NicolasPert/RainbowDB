@@ -1,10 +1,15 @@
 import { Color } from "../models/color";
+import { Movie } from "./movie";
+import { Picture } from "./picture";
+import { Univer } from "./univer";
 
 export interface Character {
   id: number;
   name: string;
-  id_movies: number;
-  id_univers: number;
   id_pictures: number;
-  id_colors: Color[];
+  to_in: Movie[];
+  belong: Univer[];
+  to_own: Color[];
+  picture: Picture[];
+  image: any;
 }

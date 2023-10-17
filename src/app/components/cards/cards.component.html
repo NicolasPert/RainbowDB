@@ -1,14 +1,15 @@
-<div class="card shadow"  style="width: 18rem;"
+<div class="container d-flex flex-row"><div  class="card shadow"  style="width: 18rem;"
 >
-  <img
-    class="card-img-top"
-    src="assets/images/blanche_neige.jpg"
-    alt="Card image cap"
-  />
-  <div class="card-body">
-    <h5 class="card-title">Noms: Blanche-Neige</h5>
-    <p class="card-text">Films: Blanche-Neige et les 7 Nains</p>
-    <p class="card-text">Univers: classique Disneys</p>
-    <p class="card-text">Couleur: </p>
-  </div>
+<img *ngIf="character.id_pictures" src="{{ characterImage }}" alt="image du personnage">
+
+<div class="card-body">
+  <h5 class="card-title">Noms: {{character.name}}</h5>
+  <p *ngFor="let movie of character.to_in" class="card-text">Films: {{ movie.name }}</p>
+  <p *ngFor="let univer of character.belong" class="card-text">Univers: {{ univer.name }}</p>
+  <p *ngFor="let color of character.to_own" class="card-text">Couleur: {{ color.name }} </p>
 </div>
+</div>
+</div>
+
+
+

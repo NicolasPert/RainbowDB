@@ -21,6 +21,8 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { ConnexionComponent } from './components/connexion/connexion.component';
 import { AjouterComponent } from './components/ajouter-characters/ajouter-characters.component';
 import { ModifierComponent } from './components/modifier/modifier.component';
+import { CharacterListComponent } from './components/character-list/character-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,13 +34,14 @@ import { ModifierComponent } from './components/modifier/modifier.component';
     ConnexionComponent,
     FootbarComponent,
     FilterBarComponent,
-    CardsComponent,
     SearchBarComponent,
     MentionLegalComponent,
     EnregistrerComponent,
     AdminComponent,
     AjouterComponent,
     ModifierComponent,
+    CardsComponent,
+    CharacterListComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'home', component: PageHomeComponent },
   { path: 'arc-en-ciel', component: ArcEnCielComponent },
   { path: 'admin', component: AdminComponent},
-  { path: 'Contactez-nous', component: ContactezNousComponent },
+  { path: 'contactez-nous', component: ContactezNousComponent },
   { path: 'Inscrire', component: EnregistrerComponent },
   { path: 'connect', component: ConnexionComponent },
   { path: '**', component: PageNotFoundComponent },

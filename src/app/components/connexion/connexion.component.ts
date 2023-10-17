@@ -23,12 +23,14 @@ export class ConnexionComponent {
 
   connecter(connexionForm: NgForm) {
     this.isFormValidate = true;
-
+      console.log(`le isFormValidate est à`,this.isFormValidate)
     if (connexionForm.valid) {
       this.userService.connexionUtilisateur(this.user).subscribe({
         next: (response) => {
           sessionStorage.setItem('token', response.accessToken);
-          location.reload(); //recharge la page actuelle
+          console.log('token', response.accessToken);
+          // location.reload(); //recharge la page actuelle
+          this.router.navigate(['../arc-en-ciel']);
         },
         error: (error) => {
           this.connexionKO = true;
