@@ -10,34 +10,35 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CardsComponent {
   @Input() character!: Character;
-  // @Input() picture!: Picture;
   currentImage!: Blob;
   characterImage!: any;
 
   constructor(private pictureService: PictureService) {}
 
   ngOnInit() {
+    // Initialisation du composant
+
     const CharacterIdPicture = this.character.id_pictures;
-    // console.log("1",CharacterIdPicture);
+
     this.pictureService.getPictureById(CharacterIdPicture).subscribe({
       next: (data: Blob) => {
-        // console.log("retour",data)
+        // Lorsque l'image est récupérée avec succès depuis le service...
         this.currentImage = data;
-        this.createImageFromBlob(this.currentImage);
-        // console.log(this.currentImage);
+        this.createImageFromBlob(this.currentImage); // ...crée une image à partir du Blob.
       },
-        error: (error) => {
-    console.error("Une erreur s'est produite mon grand : ", error);
-  },
-  
+      error: (error) => {
+        // En cas d'erreur lors de la récupération de l'image...
+        console.error("Une erreur s'est produite : ", error);
+      },
     });
   }
 
   createImageFromBlob(image: Blob) {
+    // Fonction pour créer une image à partir d'un Blob.
     let reader = new FileReader();
     reader.readAsDataURL(image);
     reader.addEventListener('load', () => {
-      this.characterImage = reader.result;
+      this.characterImage = reader.result; // Affecte l'image créée à la propriété characterImage pour l'affichage.
     });
   }
 }

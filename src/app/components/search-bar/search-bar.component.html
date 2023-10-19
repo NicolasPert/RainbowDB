@@ -1,9 +1,12 @@
 <div class="form-outline">
   <input
+    #resultSearch
     type="search"
     id="form1"
     class="form-control"
-    placeholder="Recherche"
+    placeholder="Rechercher"
     aria-label="Search"
+    (input)="inputUser.emit(resultSearch.value)"
   />
 </div>
+

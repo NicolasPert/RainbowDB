@@ -1,4 +1,5 @@
 body {
     background: url('src/assets/images/fonds.jpg');
+    background-repeat: no-repeat;
     width: auto;
 }

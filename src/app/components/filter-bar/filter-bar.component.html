@@ -17,19 +17,24 @@
         id="btn-check"
         autocomplete="off"
       />
-      <label class="btn btn-color1" for="btn-check">Jaune</label>
+      <label class="btn btn-type" for="btn-check">Jaune</label>
     </div>
   </div>
   <div class="px-3">
     <p class="fs-5 fw-semibold">Univers</p>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="test" id="test" />
-      <label class="form-check-label" for="test"> Classique Disney </label>
+    <div class="form-check" *ngFor="let univers of universParents">
+      <input  class="form-check-input" type="checkbox" value="{{ univers }}" id="{{ univers }}" (change)="onCheckUnivers($event)" />
+      <label for="form-check-label">
+      {{ univers }}
+      </label>
+      <!-- <label class="form-check-label" for="test"> Classique Disney </label> -->
     </div>
   </div>
 </div>
 
-<input type="file" (change)="onChange($event)">
+
+
+<!-- <input type="file" (change)="onChange($event)"> -->
 
 <!-- (clickCategorie)="changeCategorie()" -->
 

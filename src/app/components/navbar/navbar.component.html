@@ -12,18 +12,20 @@
     <div
       class="collapse navbar-collapse justify-content-end"
       id="navbarRightAlignExample"
-      >
+    >
       <ul class="nav">
-      <li *ngIf="!user"><a
-        class="nav-link btn2 a2 m-2"
-        alt="accès page admin"
-        title="accès page admin"
-        aria-current="page"
-        routerLinkActive="ma-classe-active"
-        [routerLink]="['admin']"
-      >
-        accès page admin
-      </a></li>
+        <li *ngIf="!user">
+          <a
+            class="nav-link btn2 a2 m-2"
+            alt="accès page admin"
+            title="accès page admin"
+            aria-current="page"
+            routerLinkActive="ma-classe-active"
+            [routerLink]="['admin']"
+          >
+            accès page admin
+          </a>
+        </li>
         <li class="nav-item">
           <a
             class="nav-link btn1 m-2"
@@ -41,7 +43,7 @@
             alt="Contactez-nous"
             title="Contactez-nous"
             routerLinkActive="ma-classe-active"
-            [routerLink]="['Contactez-nous']"
+            [routerLink]="['contactez-nous']"
             >Contactez-nous</a
           >
         </li>
