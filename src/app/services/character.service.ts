@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateCharacter } from 'src/models/CreateCharacter';
+import { CreateCharacter } from 'src/models/createCharacter';
 import { Character } from 'src/models/character';
-
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +32,10 @@ export class CharacterService {
   }
 
   getCharacterById(characterId: number): Observable<Character> {
-    // const headers = this.setHeaders();
+    const headers = this.setHeaders();
     return this.http.get<Character>(
-      `http://localhost:3000/api/character/${characterId}`
+      `http://localhost:3000/api/characters/${characterId}`,
+      { headers}
     );
   }
 
@@ -45,7 +45,7 @@ export class CharacterService {
   ): Observable<Character> {
     const headers = this.setHeaders();
     return this.http.patch<Character>(
-      `http://localhost:3000/api/character/${characterID}`,
+      `http://localhost:3000/api/characters/${characterID}`,
       character,
       {
         headers,
@@ -57,7 +57,7 @@ export class CharacterService {
     // recup le token dans le sessionstorage
     const headers = this.setHeaders();
     return this.http.delete<Character>(
-      `http://localhost:3000/api/character/${character.id}`,
+      `http://localhost:3000/api/characters/${character.id}`,
       { headers }
     );
   }

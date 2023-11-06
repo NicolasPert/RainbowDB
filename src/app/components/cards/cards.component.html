@@ -1,15 +1,18 @@
-<div  class="card"  style="width: 14rem;"
->
+<div  class="card shadow style"  style="width: 12rem; height: auto;">
 <img *ngIf="character.id_pictures" src="{{ characterImage }}" alt="image du personnage">
-
+<div  class="d-flex flex-direction-row">
+<div [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/x-circle.svg" alt="icone modifier">modif</div>
+<div [routerLink]="['../page-admin/suppression-characters', character.id]"><img src="../../../assets/images/x-circle.svg" alt="icone supprimer"></div>
+</div>
 <div class="card-body">
-  <h5 class="card-title">Noms: {{character.name}}</h5>
-  <p *ngFor="let movie of character.to_in" class="card-text">Films: {{ movie.name }}</p>
-  <p *ngFor="let univer of character.belong" class="card-text">Univers: {{ univer.name }}</p>
-  <p *ngFor="let color of character.to_own" class="card-text">Couleur: {{ color.name }} </p>
-</div>
-</div>
-
+  <h5 class="card-title">{{character.name}}</h5>
+  <h6>Film :</h6>
+  <p *ngFor="let movie of character.to_in" >{{ movie.name }}</p>
+  <h6>Univers :</h6>
+  <p *ngFor="let univer of character.belong" >{{ univer.name }}</p>
+  <h6>Couleurs :</h6>
+  <p class="container-fluid" *ngFor="let color of character.to_own" >{{ color.name }},</p>
+  </div>
 
 
 

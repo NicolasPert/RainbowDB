@@ -10,6 +10,5 @@ export interface Character {
   to_in: Movie[];
   belong: Univer[];
   to_own: Color[];
-  picture: Picture[];
-  image: any;
+  // picture: Picture[];
 }

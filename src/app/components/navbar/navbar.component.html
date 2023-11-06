@@ -1,63 +1,51 @@
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container-fluid">
-    <a
-      routerLinkActive="ma-classe-active"
-      [routerLink]="['home']"
-      class="navbar-brand text-primary m-2"
-      ><img
+    <a class="navbar-brand" [routerLink]="['/home']">
+      <img
+        id="logoNavBar"
         src="assets/images/RainbowDB.png"
-        alt="acceder à l'accueil"
-        title="acceder à l'accueil"
-    /></a>
-    <div
-      class="collapse navbar-collapse justify-content-end"
-      id="navbarRightAlignExample"
-    >
-      <ul class="nav">
-        <li *ngIf="!user">
-          <a
-            class="nav-link btn2 a2 m-2"
-            alt="accès page admin"
-            title="accès page admin"
-            aria-current="page"
-            routerLinkActive="ma-classe-active"
-            [routerLink]="['admin']"
-          >
-            accès page admin
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link btn1 m-2"
-            alt="acceder à l'arc-en-ciel"
-            title="acceder à l'arc-en-ciel"
-            aria-current="page"
-            routerLinkActive="ma-classe-active"
-            [routerLink]="['arc-en-ciel']"
-            >arc-en-ciel</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link btn1 m-2"
-            alt="Contactez-nous"
-            title="Contactez-nous"
-            routerLinkActive="ma-classe-active"
-            [routerLink]="['contactez-nous']"
-            >Contactez-nous</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link btn1 m-2"
-            alt="Espace administration"
-            title="Espace administration"
-            routerLinkActive="ma-classe-active"
-            [routerLink]="['Inscrire']"
-            >Connexion</a
-          >
-        </li>
-      </ul>
+        alt="Logo Rainbow DB"
+      />
+    </a>
+
+    <div class="ml-auto">
+      <div class="collapse navbar-collapse ml-auto" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              alt="acceder à l'arc-en-ciel"
+              title="acceder à l'arc-en-ciel"
+              class="nav-link btn1 m-2"
+              routerLinkActive="ma-classe-active"
+              [routerLink]="['arc-en-ciel']"
+            >
+              Arc-en-Ciel</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              alt="Contactez-nous"
+              title="Contactez-nous"
+              class="nav-link btn1 m-2"
+              routerLinkActive="ma-classe-active"
+              [routerLink]="['contactez-nous']"
+            >
+              Contactez-nous</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              alt="Connexion"
+              title="Connexion"
+              class="nav-link btn1 m-2"
+              routerLinkActive="ma-classe-active"
+              [routerLink]="['Connexion']"
+            >
+              Connexion</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
     <button
       class="navbar-toggler"

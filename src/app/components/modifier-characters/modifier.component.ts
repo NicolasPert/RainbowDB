@@ -1,39 +1,30 @@
-import { Component, Input } from '@angular/core';
-import {
-  FormsModule,
-  FormControl,
-  FormGroup,
-  Validators,
-  FormArray,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { MoviesService } from 'src/app/services/movies.service';
-// import { ColorsService } from 'src/app/services/colors.service';
 import { PictureService } from 'src/app/services/picture.service';
 import { UniversService } from 'src/app/services/univers.service';
-import { CreateCharacter } from 'src/models/createCharacter';
-// import { UniversService } from 'src/app/services/univers.service';
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
-import { Movie } from 'src/models/movie';
+import { CreateCharacter } from 'src/models/createCharacter';
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
 
 @Component({
-  selector: 'app-ajouter',
-  templateUrl: './ajouter-characters.component.html',
-  styleUrls: ['./ajouter-characters.component.css'],
+  selector: 'app-modifier',
+  templateUrl: './modifier.component.html',
+  styleUrls: ['./modifier.component.css'],
 })
-export class AjouterComponent {
+export class ModifierComponent {
   myFile!: File;
   id_file!: number;
   id_Movie!: number;
-  character!: Character[];
+  character!: Character;
   colorsAvailable: Color[] = [];
   universAvailable: Univer[] = [];
-  addCharacter: FormGroup = new FormGroup({
+  changeCharacter: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     movie: new FormControl('', Validators.required),
     univers: new FormControl('', Validators.required),
@@ -47,16 +38,29 @@ export class AjouterComponent {
     private router: Router,
     private colorsService: ColorsService,
     private moviesService: MoviesService,
-    private universService: UniversService
+    private universService: UniversService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.characterService.getCharacters().subscribe({
-      next: (response: Character[]) => {
-        this.character = [...response];
-        // console.log('ceci est mon character', this.character);
-      },
-    });
+    const routeParam = this.route.snapshot.paramMap;
+    const charactersIdFromRoute = Number(routeParam.get('id'));
+
+this.characterService.getCharacterById(charactersIdFromRoute).subscribe(
+  (char) => {
+    if (char) {
+      this.character = char;
+      
+    } else {
+      console.error('Personnage non trouvé ou réponse invalide du serveur.');
+    }
+  },
+  (error) => {
+    console.error('Erreur lors de la récupération du personnage :', error);
+  }
+);
+
+    
 
     this.colorsService.getColors().subscribe((colors: Color[]) => {
       this.colorsAvailable = colors;
@@ -71,58 +75,66 @@ export class AjouterComponent {
 
   onSubmit() {
     let movie = {
-      name: this.addCharacter.get('movie')?.value,
+      name: this.changeCharacter.get('movie')?.value,
     };
 
-    console.log('mes univers', this.addCharacter.get('univers')?.value);
-    console.log('mes colors', this.addCharacter.get('color')?.value);
-
-
+    console.log('mes univers', this.changeCharacter.get('univers')?.value);
+    console.log('mes colors', this.changeCharacter.get('color')?.value);
 
     this.moviesService.createMovies(movie).subscribe({
       next: (response) => {
         this.id_Movie = response.id!;
         console.log(this.id_Movie);
-        this.createCharacter();
+        this.updateCharacter();
       },
     });
   }
 
-  createCharacter() {
-    /**
-     * Si dans univers j'ai [1] => belong: [{id: 1}]
-     * Si dans univers j'ai [1, 2] => belong: [{id: 1},{id: 2} ]
-     * Même chose pour color
-     */
-    const universOriginal = this.addCharacter.get('univers')?.value;
+  updateCharacter() {
+    
+    const universOriginal = this.changeCharacter.get('univers')?.value;
     const universTransformé = universOriginal.map((id: number) => ({ id }));
 
-    const colorsOriginal = this.addCharacter.get('color')?.value;
+    const colorsOriginal = this.changeCharacter.get('color')?.value;
 
     const colorsTransformé = colorsOriginal
       .filter((id: number) => typeof id === 'number')
       .map((id: number) => ({ id }));
     console.log('les couleurs transformées', colorsTransformé);
 
-    /**
-     * Puis transférer ici une fois que toute est bon
-     */
-    const newCharacter: CreateCharacter = {
-      name: this.addCharacter.get('name')?.value,
+    
+    const changeCharacter: CreateCharacter = {
+      name: this.changeCharacter.get('name')?.value,
       to_in: [{ id: this.id_Movie }],
       belong: universTransformé,
       to_own: colorsTransformé,
       id_pictures: this.id_file,
     };
-    console.log('le perso est', newCharacter);
+    console.log('le perso est', changeCharacter);
 
+    this.route.paramMap.subscribe((params) => {
+      const idChar = params.get('id');
+      if (idChar !== null) {
+        const id = +idChar;
+        if (!isNaN(id)) {
     this.characterService
-      .createCharacter(newCharacter)
-      .subscribe((response: Character) => {
+      .updateCharacter(id, changeCharacter)
+      .subscribe((response) => {
+
         this.router.navigate(['/arc-en-ciel']);
-        console.log('Personnage ajouté avec succès', response);
-      });
-  }
+        console.log('Personnage modifié avec succès', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la modification du Personnage', error);
+            }
+          );
+        } else {
+          console.error("L'ID n'est pas un nombre valide.");
+        }
+      } else {
+        console.error("L'ID est 'null'.");
+      }
+    });}
 
   onChange(e: any) {
     console.log(e.target.files);

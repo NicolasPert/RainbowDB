@@ -1,10 +1,101 @@
-.btn-type {
-    /* background-color: #efdf48; */
-    /* color: grey; */
-    border: 1px solid grey;
+
+
+.input-style[type="checkbox"] {
+    display: none;
+    
+
 }
+
+.label-style {
+    width:8rem;
+    padding: 0.4rem;
+    border-radius: 0 125% 105% 0;
+    color: rgb(7, 7, 7);
+    border-color: 10px solid #5c5a5a;
+}
+
+.label-style:hover {
+    width:10rem;
+  
+}
+
 
 .custom-side-bar {
     margin: 0;
-    padding: 15px;
+    width: 2rem;
+    /* padding: 15px; */
+}
+
+#jaune {
+    background-color: #efdf48;
+    color: white;
+}
+
+#rouge {
+    background-color: #E30602;
+    color: white;
+}
+
+#orange {
+    background-color: #d64e12;
+    color: white;
+}
+
+#doré {
+    background-color: #e6c200;
+    color: white;
+}
+
+#vert {
+    background-color: #8bd346;
+    color: white;
+}
+#bleu_vert {
+    background-color: #29b3a5;
+    color: white;
+}
+
+#bleu {
+    background-color: #16a4d8;
+    color: white;
+}
+
+#violet {
+    background-color: #9b5fe0;
+    color: white;
+}
+
+#rose {
+    background-color: #fc6d9f;
+    color: white;
+}
+
+#beige {
+    background-color: #d9bca3;
+    color: white;
+}
+
+#marron {
+    background-color: #8b4513;
+    color: white;
+}
+
+#noir {
+    background-color: #000000;
+    color: white;
+}
+
+#gris {
+    background-color: #808080;
+    color: white;
+}
+
+#argenté {
+    background-color: #c0c0c0;
+    color: white;
+}
+
+#blanc {
+    background-color: #ffffff;
+    border-color: 1px solid #5c5a5a;
 }

@@ -1,8 +1,12 @@
+import { Color } from "./color";
+import { Movie } from "./movie";
+import { Univer } from "./univer";
+
 export interface CreateCharacter {
   id?: number;
   name: string;
-  id_movies: number;
-  id_univers: number;
+  to_in: [{ id: number }];
+  belong: [{ id: number }];
+  to_own: [{ id: number }];
   id_pictures: number;
-  id_colors: number;
 }

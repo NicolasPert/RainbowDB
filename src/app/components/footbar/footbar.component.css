@@ -1,9 +1,14 @@
+.text-left {
+    display: flex;
+    justify-content: start;
+}
+
 .text {
     color: #064BA6;
 }
 
 img {
-    width: 15%;
+    width: 20%;
 }
 
 .padding {

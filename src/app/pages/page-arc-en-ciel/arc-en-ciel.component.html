@@ -1,0 +1,31 @@
+        <div *ngIf="!user">
+          <button
+            class="btn btn2 a2 m-2"
+            alt="accès page admin"
+            title="accès page admin"
+            aria-current="page"
+            routerLinkActive="ma-classe-active"
+            [routerLink]="['../page-admin/ajouter-characters']"
+          >
+            Ajouter un personnage
+        </button>
+        </div>
+  <div class="containerComponent">
+    <div class="filter">
+      <app-search-bar (inputUser)="onEnterSearch($event)"></app-search-bar>
+      <app-filter-bar
+        [universParents]="universToDisplay"
+        [couleursParents]="colorsToDisplay"
+        (universEnvoiParents)="aLecouteDeLenfant($event)"
+        (colorsEnvoieParents)="aLecouteDesCouleurs($event)"
+      ></app-filter-bar>
+    </div>
+    <div>
+      <app-character-list
+        [character]="characterToDisplay"
+        class="d-flex flex-wrap p-2"
+      ></app-character-list>
+    </div>
+  </div>
+
+

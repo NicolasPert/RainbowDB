@@ -1,0 +1,15 @@
+.containerComponent {
+    display: flex;
+    gap: 4rem;
+}
+
+.filter {
+    justify-content: flex-start;
+}
+
+.btn2 {
+    background-color: #166ee1;
+    border-radius: 8px;
+    color:white;
+    border: 1px solid white;
+}

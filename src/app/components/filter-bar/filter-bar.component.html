@@ -1,38 +1,48 @@
-<div class="custom-side-bar border-end" style="
-            width: 15rem;
-            background: hsla(0, 0%, 100%, 0.55);
-            backdrop-filter: blur(30px);
-            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-          ">
+<div
+  class="custom-side-bar border-end sticky-top"
+  style="
+    width: 15rem;
+    background: hsla(0, 0%, 100%, 0.55);
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  "
+>
   <div class="p-3">
-    <span class="fs-5 fw-semibold">Catégories</span>
+    <span class="fs-5 fw-semibold text-center p-5">Catégories</span>
   </div>
   <hr />
   <div clas="px-3">
     <p class="fs-5 fw-semibold">Couleurs</p>
-    <div class="form-check">
+    <div *ngFor="let colors of couleursParents">
+      <label id="{{ colors }}" class="label-style">
       <input
-        type="checkbox"
-        class="btn-check"
-        id="btn-check"
-        autocomplete="off"
+      type="checkbox"
+      class="input-style"
+      value="{{ colors }}"
+      id="{{ colors }}"
+      autocomplete="off"
+      (change)="onCheckColors($event)"
       />
-      <label class="btn btn-type" for="btn-check">Jaune</label>
+      {{ colors }}</label
+      >
     </div>
   </div>
   <div class="px-3">
     <p class="fs-5 fw-semibold">Univers</p>
     <div class="form-check" *ngFor="let univers of universParents">
-      <input  class="form-check-input" type="checkbox" value="{{ univers }}" id="{{ univers }}" (change)="onCheckUnivers($event)" />
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value="{{ univers }}"
+        id="{{ univers }}"
+        (change)="onCheckUnivers($event)"
+      />
       <label for="form-check-label">
-      {{ univers }}
+        {{ univers }}
       </label>
-      <!-- <label class="form-check-label" for="test"> Classique Disney </label> -->
     </div>
   </div>
 </div>
-
-
 
 <!-- <input type="file" (change)="onChange($event)"> -->
 

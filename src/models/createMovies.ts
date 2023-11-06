@@ -1,4 +1,4 @@
-export interface Univer {
+export interface CreateMovies {
   id?: number;
   name: string;
 }

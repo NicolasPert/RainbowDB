@@ -7,5 +7,5 @@ import { User } from 'src/models/user';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  @Input() user!: User;
+  
 }

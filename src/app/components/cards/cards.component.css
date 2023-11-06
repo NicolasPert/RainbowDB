@@ -2,3 +2,22 @@
    background: hsla(0, 0%, 100%, 0.55);
    backdrop-filter: blur(30px);
 }
+
+.card {
+   border-radius:1rem ;
+   padding: 0.5rem;
+   margin: 0.2rem;
+}
+
+img {
+   border-radius: 1rem;
+}
+
+.text {
+   display: flex;
+   flex-direction: column;
+}
+
+.couleurs {
+   text-wrap:balance;
+}

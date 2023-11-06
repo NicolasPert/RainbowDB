@@ -1,4 +1,4 @@
 export interface Movie {
-  id: number;
+  id?: number;
   name: string;
 }

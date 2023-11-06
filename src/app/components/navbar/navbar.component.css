@@ -6,6 +6,8 @@ img {
     background-color: white;
     border-radius: 8px;
     border: 1px solid #064BA6;
+    text-align:center;
+    /* padding:0; */
 }
 
 a {
@@ -15,11 +17,7 @@ a {
 .a2 {
     color: white;
 }
-.btn2 {
-    background-color: #166ee1;
-    border-radius: 8px;
-    border: 1px solid white;
-}
+
 
 
 

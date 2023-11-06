@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
+import { ColorsService } from 'src/app/services/colors.service';
 import { PictureService } from 'src/app/services/picture.service';
 import { UniversService } from 'src/app/services/univers.service';
 import { Character } from 'src/models/character';
 
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-arc-en-ciel',
@@ -13,21 +15,26 @@ import { Univer } from 'src/models/univer';
   styleUrls: ['./arc-en-ciel.component.css'],
 })
 export class ArcEnCielComponent {
+  @Input() user!: User;
   characterToDisplay: Character[] = [];
   pictureToDisplay: Picture[] = [];
   universToDisplay: string[] = [];
+  colorsToDisplay: string[] = [];
   imageToShow!: any;
   isImageLoading!: Boolean;
   univers!: string[];
   universChecked!: string[];
   userInput!: string;
   allCharacters!: Character[];
+  colorsChecked!: string[];
+  characters: Character[] = [];
 
   constructor(
     private characterService: CharacterService,
     private universService: UniversService,
     // private userService: UserService,
-    private pictureService: PictureService
+    private pictureService: PictureService,
+    private colorsService: ColorsService
   ) {}
 
   ngOnInit(): void {
@@ -44,35 +51,76 @@ export class ArcEnCielComponent {
       for (let i = 0; i < univers.length; i++) {
         this.universToDisplay[i] = univers[i].name;
       }
-      console.log(this.universToDisplay);
+      // console.log(this.universToDisplay);
+    });
+
+    this.colorsService.getColors().subscribe((colors) => {
+      for (let i = 0; i < colors.length; i++) {
+        this.colorsToDisplay[i] = colors[i].name;
+      }
+      // console.log(this.colorsToDisplay);
     });
   }
-
 
   aLecouteDeLenfant(categoryDeLenfant: string[]) {
     // Fonction appelée lorsqu'un utilisateur effectue une recherche.
     // console.log('categoryDeLenfant', categoryDeLenfant);
     this.universChecked = categoryDeLenfant;
-    console.log('ici', this.universChecked);
+    // console.log('ici', this.universChecked);
+    this.onUserInteractionFiltre();
+  }
+
+  aLecouteDesCouleurs(categoryDeLaCouleur: string[]) {
+    // Fonction appelée lorsqu'un utilisateur effectue une recherche.
+    // console.log('categoryDeLenfant', categoryDeLenfant);
+    this.colorsChecked = categoryDeLaCouleur;
+    console.log('ici', this.colorsChecked);
     this.onUserInteractionFiltre();
   }
 
   onEnterSearch(resultUserSearch: string) {
-    
     this.userInput = resultUserSearch;
-
+    // console.log(this.userInput);
+    this.characterToDisplay = this.allCharacters.filter((c) =>
+      c.name.toLowerCase().includes(this.userInput.toLowerCase())
+    );
+    // console.log(this.characterToDisplay);
     this.onUserInteractionFiltre();
   }
 
   onUserInteractionFiltre() {
     // Fonction pour filtrer les personnages en fonction des univers sélectionnés et de la recherche.
     this.characterToDisplay = [...this.allCharacters]; // Réinitialise les personnages affichés.
+    // console.log('avant filtre', this.characterToDisplay);
 
     if (this.universChecked) {
+      // alert('filtre 1');
       // Si des univers sont sélectionnés...
       this.characterToDisplay = this.characterToDisplay.filter((perso) =>
         this.universChecked.includes(perso.belong[0].name)
       ); // ...filtre les personnages en fonction des univers sélectionnés.
+      // console.log('après filtre 1', this.characterToDisplay);
+    }
+    if (this.colorsChecked) {
+      // alert('filtre 2');
+      this.characterToDisplay = this.characterToDisplay.filter((c) => {
+        return this.colorsChecked.every((x) => {
+          for (let i = 0; i < c.to_own.length; i++) {
+            if (c.to_own[i].name.includes(x)) {
+              return true;
+            }
+          }
+          return false;
+        });
+      });
+      // console.log('après filtre 2', this.characterToDisplay);
+      // console.log('après filtre 2', this.colorsChecked);
+    }
+
+    if (this.userInput) {
+      this.characterToDisplay = this.allCharacters.filter((c) =>
+        c.name.toLowerCase().includes(this.userInput.toLowerCase())
+      );
     }
   }
 
@@ -94,7 +142,7 @@ export class ArcEnCielComponent {
       },
       error: (error) => {
         this.isImageLoading = false;
-        console.log(error, `ceci est mon erreur `);
+        // console.log(error, `ceci est mon erreur `);
       },
     });
   }

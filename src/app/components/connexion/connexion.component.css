@@ -2,10 +2,14 @@
     color: #064BA6;
 }
 
-.form-group {
+/* .form-group {
     background: hsla(0, 0%, 100%, 0.55);
-}
+} */
 
+input {
+    width:19rem;
+    text-align: center;
+}
 
 .container {
     height: 200px;
