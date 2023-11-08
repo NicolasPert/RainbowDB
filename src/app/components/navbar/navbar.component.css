@@ -14,8 +14,19 @@ a {
     color: #064BA6;
 }
 
+a:hover {
+    color:#ec5316;
+    text-decoration: underline;
+}
+
 .a2 {
     color: white;
+}
+
+.navbar {
+        background: hsla(0, 0%, 100%, 0.55);
+        backdrop-filter: blur(30px);
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 

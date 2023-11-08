@@ -20,4 +20,13 @@ export class ColorsService {
   getColors(): Observable<Color[]> {
     return this.http.get<Color[]>('http://localhost:3000/api/colors');
   }
+
+  updateColors(colorId: number, color: Color): Observable<Color> {
+    const headers = this.setHeaders();
+    return this.http.patch<Color>(
+      `http://localhost:3000/api/characters/${colorId}`,
+      color,
+      { headers }
+    );
+  }
 }

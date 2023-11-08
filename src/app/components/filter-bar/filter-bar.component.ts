@@ -9,6 +9,7 @@ import { Color } from 'src/models/color';
   styleUrls: ['./filter-bar.component.css'],
 })
 export class FilterBarComponent {
+  isFilterActive: boolean = false;
   @Input() universParents!: string[];
   @Input() couleursParents!: string[];
   checkedUnivers: string[] = [];
@@ -16,6 +17,13 @@ export class FilterBarComponent {
   @Output() universEnvoiParents = new EventEmitter<string[]>();
   @Output() colorsEnvoieParents = new EventEmitter<string[]>();
 
+  onFocus() {
+    this.isFilterActive = true;
+  }
+
+  onBlur() {
+    this.isFilterActive = false;
+  }
 
   onCheckUnivers(e: Event) {
     // Cette fonction est appelée lorsqu'une case à cocher est modifiée.

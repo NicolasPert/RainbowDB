@@ -1,23 +1,24 @@
 <div
-  class="custom-side-bar border-end sticky-top"
+  class="custom-side-bar border-end"
   style="
-    width: 15rem;
+    width: 5rem;
     background: hsla(0, 0%, 100%, 0.55);
     backdrop-filter: blur(30px);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   "
 >
-  <div class="p-3">
-    <span class="fs-5 fw-semibold text-center p-5">Catégories</span>
-  </div>
-  <hr />
-  <div clas="px-3">
-    <p class="fs-5 fw-semibold">Couleurs</p>
-    <div *ngFor="let colors of couleursParents">
+
+  <div clas="px-3 dropdown">
+      <a class="dropdown-toggle fs-5 fw-semibold" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    <img src="../../../assets/images/Arc-en-Ciel.png" alt="Couleurs" class="taille-image">
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <div *ngFor="let colors of couleursParents" >
       <label id="{{ colors }}" class="label-style">
       <input
+      (focus)="onFocus()" (blur)="onBlur()" [ngClass]="{'active-filter': isFilterActive}"
       type="checkbox"
-      class="input-style"
+      class="input-style dropdown-item"
       value="{{ colors }}"
       id="{{ colors }}"
       autocomplete="off"
@@ -26,6 +27,7 @@
       {{ colors }}</label
       >
     </div>
+  </div>
   </div>
   <div class="px-3">
     <p class="fs-5 fw-semibold">Univers</p>

@@ -112,7 +112,7 @@ export class AjouterComponent {
       to_in: [{ id: this.id_Movie }],
       belong: universTransformé,
       to_own: colorsTransformé,
-      id_pictures: this.id_file,
+      picture: { id: this.id_file},
     };
     console.log('le perso est', newCharacter);
 

@@ -9,6 +9,7 @@ import { UniversService } from 'src/app/services/univers.service';
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
 import { CreateCharacter } from 'src/models/createCharacter';
+import { Movie } from 'src/models/movie';
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
 
@@ -24,6 +25,7 @@ export class ModifierComponent {
   character!: Character;
   colorsAvailable: Color[] = [];
   universAvailable: Univer[] = [];
+  moviesAvailable: Movie[] = [];
   changeCharacter: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     movie: new FormControl('', Validators.required),
@@ -46,30 +48,18 @@ export class ModifierComponent {
     const routeParam = this.route.snapshot.paramMap;
     const charactersIdFromRoute = Number(routeParam.get('id'));
 
-this.characterService.getCharacterById(charactersIdFromRoute).subscribe(
-  (char) => {
-    if (char) {
-      this.character = char;
-      
-    } else {
-      console.error('Personnage non trouvé ou réponse invalide du serveur.');
-    }
-  },
-  (error) => {
-    console.error('Erreur lors de la récupération du personnage :', error);
-  }
-);
-
-    
+    this.characterService
+      .getCharacterById(charactersIdFromRoute)
+      .subscribe((char) => {
+        this.character = char;
+      });
 
     this.colorsService.getColors().subscribe((colors: Color[]) => {
       this.colorsAvailable = colors;
-      // console.log('ceci sont mes couleur', this.colorsAvailable);
     });
 
     this.universService.getUnivers().subscribe((univers: Univer[]) => {
       this.universAvailable = univers;
-      // console.log('ceci est mon univers', this.universAvailable);
     });
   }
 
@@ -91,9 +81,15 @@ this.characterService.getCharacterById(charactersIdFromRoute).subscribe(
   }
 
   updateCharacter() {
-    
+    const newPhotoId = this.id_file;
+    /**
+     * Si dans univers j'ai [1] => belong: [{id: 1}]
+     * Si dans univers j'ai [1, 2] => belong: [{id: 1},{id: 2} ]
+     * Même chose pour color
+     */
     const universOriginal = this.changeCharacter.get('univers')?.value;
     const universTransformé = universOriginal.map((id: number) => ({ id }));
+    console.log(`mes univers transformé`, universTransformé);
 
     const colorsOriginal = this.changeCharacter.get('color')?.value;
 
@@ -102,42 +98,29 @@ this.characterService.getCharacterById(charactersIdFromRoute).subscribe(
       .map((id: number) => ({ id }));
     console.log('les couleurs transformées', colorsTransformé);
 
-    
+    /**
+     * Puis transférer ici une fois que toute est bon
+     */
     const changeCharacter: CreateCharacter = {
       name: this.changeCharacter.get('name')?.value,
       to_in: [{ id: this.id_Movie }],
       belong: universTransformé,
       to_own: colorsTransformé,
-      id_pictures: this.id_file,
+      picture: { id: newPhotoId },
     };
+    console.log('une photo avec id',newPhotoId);
     console.log('le perso est', changeCharacter);
 
-    this.route.paramMap.subscribe((params) => {
-      const idChar = params.get('id');
-      if (idChar !== null) {
-        const id = +idChar;
-        if (!isNaN(id)) {
+    const characterIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
     this.characterService
-      .updateCharacter(id, changeCharacter)
+      .updateCharacter(characterIdFromRoute, changeCharacter)
       .subscribe((response) => {
-
         this.router.navigate(['/arc-en-ciel']);
         console.log('Personnage modifié avec succès', response);
-      },
-      (error) => {
-        console.error('Erreur lors de la modification du Personnage', error);
-            }
-          );
-        } else {
-          console.error("L'ID n'est pas un nombre valide.");
-        }
-      } else {
-        console.error("L'ID est 'null'.");
-      }
-    });}
+      });
+  }
 
   onChange(e: any) {
-    console.log(e.target.files);
     this.myFile = e.target.files[0];
     if (this.myFile) {
       const formData = new FormData();
@@ -147,7 +130,6 @@ this.characterService.getCharacterById(charactersIdFromRoute).subscribe(
         .postPicture(formData)
         .subscribe((photo: Partial<Picture>) => {
           this.id_file = photo.id!;
-
           alert('image postée');
         });
     }

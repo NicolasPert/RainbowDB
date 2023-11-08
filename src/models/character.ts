@@ -4,11 +4,10 @@ import { Picture } from "./picture";
 import { Univer } from "./univer";
 
 export interface Character {
-  id: number;
+  id?: number;
   name: string;
-  id_pictures: number;
   to_in: Movie[];
   belong: Univer[];
   to_own: Color[];
-  // picture: Picture[];
+  picture: Picture;
 }

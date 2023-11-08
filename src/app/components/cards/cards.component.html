@@ -1,5 +1,5 @@
 <div  class="card shadow style"  style="width: 12rem; height: auto;">
-<img *ngIf="character.id_pictures" src="{{ characterImage }}" alt="image du personnage">
+<img *ngIf="character.picture" src="{{ characterImage }}" alt="image du personnage">
 <div  class="d-flex flex-direction-row">
 <div [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/x-circle.svg" alt="icone modifier">modif</div>
 <div [routerLink]="['../page-admin/suppression-characters', character.id]"><img src="../../../assets/images/x-circle.svg" alt="icone supprimer"></div>

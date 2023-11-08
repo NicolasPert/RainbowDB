@@ -20,13 +20,20 @@ export class MoviesService {
     return headers;
   }
 
-  
-
   createMovies(movies: CreateMovies): Observable<Movie> {
     const headers = this.setHeaders();
     return this.http.post<Movie>(`http://localhost:3000/api/movies`, movies, {
       headers,
     });
+  }
+
+  updateMovies(movieId: number, movies: CreateMovies): Observable<Movie> {
+    const headers = this.setHeaders();
+    return this.http.patch<Movie>(
+      `http://localhost:3000/api/characters/${movieId}`,
+      movies,
+      { headers }
+    );
   }
 
   getMovie(): Observable<Movie> {
@@ -36,6 +43,15 @@ export class MoviesService {
   getMovieIdByName(movieName: string): Observable<number> {
     return this.http.get<number>(
       `http://localhost:3000/api/movies/id?name=${movieName}`
+    );
+  }
+
+  deleteMovie(movieId: string): Observable<Movie> {
+    // recup le token dans le sessionstorage
+    const headers = this.setHeaders();
+    return this.http.delete<Movie>(
+      `http://localhost:3000/api/movies/${movieId}`,
+      { headers }
     );
   }
 }

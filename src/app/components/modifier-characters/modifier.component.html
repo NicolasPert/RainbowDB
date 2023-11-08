@@ -11,7 +11,7 @@
       >
         <div class="card-body p-5 shadow-5 text-center text-color">
           <div class="mb-5">
-            <h2>Modifier ce personnage : {{ character.name }}</h2>
+            <h2 *ngIf="character" class="text-color">Modifier ce personnage : {{ character.name }}</h2>
           </div>
 
           <form [formGroup]="changeCharacter" (ngSubmit)="onSubmit()">

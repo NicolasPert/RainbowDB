@@ -18,7 +18,7 @@ export class CardsComponent {
   ngOnInit() {
     // Initialisation du composant
 
-    const CharacterIdPicture = this.character.id_pictures;
+    const CharacterIdPicture = Number(this.character.picture.id);
 
     this.pictureService.getPictureById(CharacterIdPicture).subscribe({
       next: (data: Blob) => {

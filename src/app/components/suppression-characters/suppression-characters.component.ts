@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CharacterService } from 'src/app/services/character.service';
 import { Character } from 'src/models/character';
 import { User } from 'src/models/user';
+import { Picture } from 'src/models/picture';
+
 
 @Component({
   selector: 'app-suppression-characters',
@@ -14,7 +16,7 @@ export class SuppressionCharactersComponent {
   character: Character = {
     id: 1,
     name: '',
-    id_pictures: 1,
+    picture: { id: 1, name: '', size: 1, description:'', mimetype: ''},
     to_in: [],
     belong: [],
     to_own: [],
@@ -39,9 +41,11 @@ export class SuppressionCharactersComponent {
 
   deleteCharacter(id: Character) {
     this.characterService.deleteCharacter(id).subscribe((response) => {
-      next : response;
-      this.router.navigate(['ar-en-ciel']);
-      // console.log('le produit a bien été supprimé.' + response);
+      
+      this.router.navigate(['arc-en-ciel']);
+      console.log('le produit a bien été supprimé.' + response);
     });
   }
+
+  
 }

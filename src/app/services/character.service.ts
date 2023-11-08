@@ -42,9 +42,9 @@ export class CharacterService {
   updateCharacter(
     characterID: number,
     character: CreateCharacter
-  ): Observable<Character> {
+  ): Observable<CreateCharacter> {
     const headers = this.setHeaders();
-    return this.http.patch<Character>(
+    return this.http.patch<CreateCharacter>(
       `http://localhost:3000/api/characters/${characterID}`,
       character,
       {
