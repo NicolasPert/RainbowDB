@@ -14,13 +14,6 @@ export class NavbarComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe((x) => {
-      this.user = x;
-      console.log(x);
-    });
-    console.log('NavbarComponent - User Admin:', this.user);
-  
-
       this.userService.getUser().subscribe({
       next: (response) => {
         this.user = response;

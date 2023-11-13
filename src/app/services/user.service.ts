@@ -44,7 +44,7 @@ export class UserService {
 
   getUser(): Observable<User> {
     const headers  = this.setHeaders();
-    return this.http.get<User>(`${this.baseApiUrl}/user`, { headers });
+    return this.http.get<User>(`${this.baseApiUrl}/user/current`, { headers });
   }
 
   getUserBy(): Observable<User> {

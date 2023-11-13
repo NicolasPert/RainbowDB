@@ -25,16 +25,17 @@ export class CardsComponent {
   ) {}
 
   ngOnInit() {
-    const userId = sessionStorage.getItem('id');
-    if (userId) {
-      this.userService.getUser().subscribe((user: User) => {
-        this.admin = user.admin;
-        this.to_likes = user.to_likes;
-        console.log('mon admin',this.admin);
-        
-      });
-    }
-    // Initialisation du composant
+    this.userService.getUser().subscribe({
+      next: (response) => {
+        this.user = response;
+        this.admin = this.user.admin;
+
+      },
+      error: (error) => {
+        this.admin = true;
+      },
+    });
+  
 
     const CharacterIdPicture = Number(this.character.picture.id);
 
@@ -63,27 +64,21 @@ export class CardsComponent {
   ajoutFavoris() {
     const characterId = this.character.id;
 
-     if (this.estFavoris) {
-       // Le tableau est dans les favoris, supprimez-le
-       (this.user.to_likes =
-         this.user.to_likes.filter((t) => t.id !== characterId)),
-         this.userService
-           .updateUser(this.user)
-           .subscribe(() => {
-             this.estFavoris = false;
-           });
-     } else {
-       // Le tableau n'est pas dans les favoris, ajoutez-le
-       this.user.to_likes = [
-         ...this.user.to_likes,
-         this.character,
-       ];
+    if (this.estFavoris) {
+      // Le tableau est dans les favoris, supprimez-le
+      (this.user.to_likes = this.user.to_likes.filter(
+        (t) => t.id !== characterId
+      )),
+        this.userService.updateUser(this.user).subscribe(() => {
+          this.estFavoris = false;
+        });
+    } else {
+      // Le tableau n'est pas dans les favoris, ajoutez-le
+      this.user.to_likes = [...this.user.to_likes, this.character];
 
-       this.userService
-         .updateUser(this.user)
-         .subscribe(() => {
-           this.estFavoris = true;
-         });
-     }
+      this.userService.updateUser(this.user).subscribe(() => {
+        this.estFavoris = true;
+      });
+    }
   }
 }

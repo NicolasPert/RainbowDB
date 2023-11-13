@@ -3,8 +3,8 @@
 <img src="../../../assets/images/favorisChecked.png" class="colorTaille"  (click)="ajoutFavoris()">
 <img *ngIf="character.picture" src="{{ characterImage }}" class="imgCard" alt="image du personnage">
 <div  class="d-flex flex-direction-row justify-content-between" >
-<div  *ngIf="!admin" [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/crayon.png" alt="icone modifier" class="taille1"></div>
-<div  *ngIf="!admin" [routerLink]="['../page-admin/suppression-characters', character.id]"><img src="../../../assets/images/poubelle.png" alt="icone supprimer" class="taille2"></div>
+<div  *ngIf="admin" [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/crayon.png" alt="icone modifier" class="taille1"></div>
+<div  *ngIf="admin" [routerLink]="['../page-admin/suppression-characters', character.id]"><img src="../../../assets/images/poubelle.png" alt="icone supprimer" class="taille2"></div>
 </div>
 <div class="card-body">
   <h5 class="card-title">{{character.name}}</h5><hr>
