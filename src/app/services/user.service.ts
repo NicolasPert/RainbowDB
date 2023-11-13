@@ -22,32 +22,42 @@ export class UserService {
   }
 
   inscriptionUtilisateur(data: User): Observable<User> {
-    return this.http.post<User>(
-      `${this.baseApiUrl}/auth/register`,
-      data
-    );
+    return this.http.post<User>(`${this.baseApiUrl}/auth/register`, data);
   }
 
   connexionUtilisateur(data: LoginUser): Observable<ReponseConnexion> {
-    console.log(`voici ma data :`, data)
+    console.log(`voici ma data :`, data);
     return this.http.post<ReponseConnexion>(
       `${this.baseApiUrl}/auth/login`,
       data
     );
   }
 
-  getProfilUtilisateur(): Observable<User> {
-    const headers = this.setHeaders();
-    return this.http
-      .get<User>(`${this.baseApiUrl}/utilisateurs`, { headers })
-      .pipe(
-        tap((utilisateur: User) => {
-          sessionStorage.setItem(
-            'profilUtilisateur',
-            utilisateur.admin.toString()
-          );
-        })
-      );
+  // getUser(): Observable<User> {
+  //   const headers = this.setHeaders();
+  //   return this.http.get<User>(`${this.baseApiUrl}/user`, { headers }).pipe(
+  //     tap((user: User) => {
+  //       sessionStorage.setItem('isAdmin', user.admin.toString());
+  //     })
+  //   );
+  // }
+
+  getUser(): Observable<User> {
+    const headers  = this.setHeaders();
+    return this.http.get<User>(`${this.baseApiUrl}/user`, { headers });
   }
 
+  getUserBy(): Observable<User> {
+    const headers = this.setHeaders();
+    return this.http.get<User>(`${this.baseApiUrl}/user`, {
+      headers,
+    });
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.patch<User>(`${this.baseApiUrl}/user/${user.id}`, {
+      to_likes: user.to_likes,
+      Headers,
+    });
+  }
 }

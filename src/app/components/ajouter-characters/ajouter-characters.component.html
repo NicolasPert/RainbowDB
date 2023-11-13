@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center">
+<div class="container d-flex justify-content-center" style="padding-top:2rem;">
   <div class="row g-0 align-items-center">
     <div class="d-flex">
       <div
@@ -38,48 +38,32 @@
               />
             </div>
             <div>
-              <label for="univers">Univers:</label>
-              <select
-                id="univers"
-                name="univers"
-                formControlName="univers"
-                class="form-control"
-                multiple
-                required
-              >
-                <option
-                  *ngFor="let univers of universAvailable"
-                  [value]="univers.id"
-                  class="text"
-                >
-                  {{ univers.name }}
-                </option>
-              </select>
+              <label>Univers:</label>
             </div>
+
+            <ng-select
+              formControlName="univers"
+              [multiple]="true"
+              [items]="universAvailable"
+              bindLabel="name"
+              bindValue="id"
+            >
+            </ng-select>
+
             <div>
               <label
-                >Couleurs (maintenez CTRL/command pour plusieurs
-                couleurs):</label
+                >Couleurs :</label
               >
             </div>
 
-            <div>
-              <select
-                id="color"
-                formControlName="color"
-                name="color"
-                class="form-control"
-                required
-                multiple
-              >
-                <option
-                  *ngFor="let color of colorsAvailable"
-                  [value]="color.id"
-                >
-                  {{ color.name }}
-                </option>
-              </select>
-            </div>
+            <ng-select
+              formControlName="color"
+              [multiple]="true"
+              [items]="colorsAvailable"
+              bindLabel="name"
+              bindValue="id"
+            >
+            </ng-select>
             <div class="form-group">
               <input
                 formControlName="id_pictures"
@@ -89,7 +73,7 @@
               />
             </div>
 
-            <button type="submit" class="btn btn-primary m-5">Ajouter</button>
+            <button type="submit" class="btn btn-primary m-1">Ajouter</button>
           </form>
         </div>
       </div>

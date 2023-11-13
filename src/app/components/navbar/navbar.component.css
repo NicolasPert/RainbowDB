@@ -26,7 +26,14 @@ a:hover {
 .navbar {
         background: hsla(0, 0%, 100%, 0.55);
         backdrop-filter: blur(30px);
-        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.btn2 {
+    background-color: #166ee1;
+    border-radius: 8px;
+    color: white;
+    border: 1px solid white;
+    padding: 0.55rem;
 }
 
 

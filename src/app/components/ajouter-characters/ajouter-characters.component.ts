@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormsModule,
   FormControl,
@@ -17,9 +17,10 @@ import { CreateCharacter } from 'src/models/createCharacter';
 // import { UniversService } from 'src/app/services/univers.service';
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
-import { Movie } from 'src/models/movie';
+// import { Movie } from 'src/models/movie';
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-ajouter',
@@ -36,9 +37,9 @@ export class AjouterComponent {
   addCharacter: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     movie: new FormControl('', Validators.required),
-    univers: new FormControl('', Validators.required),
+    univers: new FormControl([]),
     id_pictures: new FormControl(''),
-    color: new FormControl('', Validators.required),
+    color: new FormControl([]),
   });
 
   constructor(
@@ -77,8 +78,6 @@ export class AjouterComponent {
     console.log('mes univers', this.addCharacter.get('univers')?.value);
     console.log('mes colors', this.addCharacter.get('color')?.value);
 
-
-
     this.moviesService.createMovies(movie).subscribe({
       next: (response) => {
         this.id_Movie = response.id!;
@@ -94,6 +93,12 @@ export class AjouterComponent {
      * Si dans univers j'ai [1, 2] => belong: [{id: 1},{id: 2} ]
      * Même chose pour color
      */
+    // Supposons que votre formulaire s'appelle userForm
+    // const universTransformé = this.addCharacter.get('univers')?.value;
+    // const universTransformé = this.addCharacter
+    //   .get('univers')
+    //   ?.value.map((univers: any) => univers.id);
+
     const universOriginal = this.addCharacter.get('univers')?.value;
     const universTransformé = universOriginal.map((id: number) => ({ id }));
 
@@ -112,7 +117,7 @@ export class AjouterComponent {
       to_in: [{ id: this.id_Movie }],
       belong: universTransformé,
       to_own: colorsTransformé,
-      picture: { id: this.id_file},
+      picture: { id: this.id_file },
     };
     console.log('le perso est', newCharacter);
 

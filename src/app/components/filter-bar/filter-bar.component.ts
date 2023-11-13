@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter } from 'rxjs';
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-filter-bar',
@@ -16,6 +17,11 @@ export class FilterBarComponent {
   checkedColors: string[] = [];
   @Output() universEnvoiParents = new EventEmitter<string[]>();
   @Output() colorsEnvoieParents = new EventEmitter<string[]>();
+
+  getCssClass(univers: string): string {
+    // Remplace les espaces par des traits d'union
+    return univers.replace(/ /g, '-');
+  }
 
   onFocus() {
     this.isFilterActive = true;

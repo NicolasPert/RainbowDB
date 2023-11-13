@@ -1,3 +1,7 @@
+.colorTaille {
+   width: 1.5rem;
+}
+
 .style {
    background: hsla(0, 0%, 100%, 0.55);
    backdrop-filter: blur(30px);
@@ -9,8 +13,16 @@
    margin: 0.2rem;
 }
 
-img {
+.imgCard {
    border-radius: 1rem;
+}
+
+.taille2 {
+   width:1rem;
+}
+
+.taille1 {
+   width: 1.5rem;
 }
 
 .text {

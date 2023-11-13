@@ -16,6 +16,7 @@ export class EnregistrerComponent {
     password: '',
     password_validate: '',
     admin: false,
+    to_likes: [],
   };
 
   confirmMdpError = false;

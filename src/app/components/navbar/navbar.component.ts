@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/models/user';
 
 @Component({
@@ -7,5 +8,30 @@ import { User } from 'src/models/user';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+  @Input() user!: User;
+  isAdmin: boolean = false;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.getUser().subscribe((x) => {
+      this.user = x;
+      console.log(x);
+    });
+    console.log('NavbarComponent - User Admin:', this.user);
   
-}
+
+      this.userService.getUser().subscribe({
+      next: (response) => {
+        this.user = response;
+        this.isAdmin = this.user.admin;
+
+        const isAdmin = sessionStorage.getItem('isAdmin');
+        this.isAdmin = isAdmin ? isAdmin === 'true' : false;
+        
+      },
+      error: (error) => {
+        this.isAdmin = true; 
+      },
+    });
+}}

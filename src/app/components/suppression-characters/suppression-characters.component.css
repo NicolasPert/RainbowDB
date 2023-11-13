@@ -1,0 +1,16 @@
+.btn2 {
+    background-color: #166ee1;
+    border-radius: 8px;
+    color: white;
+    border: 1px solid white;
+    padding: 0.55rem;
+    margin-right:1rem;
+}
+
+.btn3 {
+    background-color: #e14c16;
+    border-radius: 8px;
+    color: white;
+    border: 1px solid white;
+    padding:  0.55rem 0.45rem;
+}

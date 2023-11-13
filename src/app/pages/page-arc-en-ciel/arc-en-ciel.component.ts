@@ -3,6 +3,7 @@ import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { PictureService } from 'src/app/services/picture.service';
 import { UniversService } from 'src/app/services/univers.service';
+import { UserService } from 'src/app/services/user.service';
 import { Character } from 'src/models/character';
 
 import { Picture } from 'src/models/picture';
@@ -15,7 +16,8 @@ import { User } from 'src/models/user';
   styleUrls: ['./arc-en-ciel.component.css'],
 })
 export class ArcEnCielComponent {
-  @Input() user!: User;
+  @Input() user!: User[];
+  users!: User;
   characterToDisplay: Character[] = [];
   pictureToDisplay: Picture[] = [];
   universToDisplay: string[] = [];
@@ -32,7 +34,7 @@ export class ArcEnCielComponent {
   constructor(
     private characterService: CharacterService,
     private universService: UniversService,
-    // private userService: UserService,
+    private userService: UserService,
     private pictureService: PictureService,
     private colorsService: ColorsService
   ) {}
@@ -60,6 +62,21 @@ export class ArcEnCielComponent {
       }
       // console.log(this.colorsToDisplay);
     });
+
+    // const userId = sessionStorage.getItem('id');
+    // if (userId) {
+    //   this.userService.getUser().subscribe({
+    //     next: (response) => {
+    //       this.users = response;
+    //     },
+    //     error: (error) => {
+    //       console.error(
+    //         "Erreur lors de la récupération des informations de l'utilisateur",
+    //         error
+    //       );
+    //     },
+    //   });
+    // }
   }
 
   aLecouteDeLenfant(categoryDeLenfant: string[]) {
@@ -94,7 +111,6 @@ export class ArcEnCielComponent {
     // console.log('avant filtre', this.characterToDisplay);
 
     if (this.universChecked) {
-      // alert('filtre 1');
       // Si des univers sont sélectionnés...
       this.characterToDisplay = this.characterToDisplay.filter((perso) =>
         this.universChecked.includes(perso.belong[0].name)
@@ -102,7 +118,6 @@ export class ArcEnCielComponent {
       // console.log('après filtre 1', this.characterToDisplay);
     }
     if (this.colorsChecked) {
-      // alert('filtre 2');
       this.characterToDisplay = this.characterToDisplay.filter((c) => {
         return this.colorsChecked.every((x) => {
           for (let i = 0; i < c.to_own.length; i++) {

@@ -7,7 +7,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageHomeComponent } from './pages/page-home/page-home.component';
 import { ArcEnCielComponent } from './pages/page-arc-en-ciel/arc-en-ciel.component';
-import { ContactezNousComponent } from './pages/contactez-nous/contactez-nous.component';
 import { FootbarComponent } from './components/footbar/footbar.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { CardsComponent } from './components/cards/cards.component';
@@ -23,6 +22,8 @@ import { AjouterComponent } from './components/ajouter-characters/ajouter-charac
 import { ModifierComponent } from './components/modifier-characters/modifier.component';
 import { CharacterListComponent } from './components/character-list/character-list.component';
 import { SuppressionCharactersComponent } from './components/suppression-characters/suppression-characters.component';
+import { compileComponentFromMetadata } from '@angular/compiler';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,6 @@ import { SuppressionCharactersComponent } from './components/suppression-charact
     PageNotFoundComponent,
     PageHomeComponent,
     ArcEnCielComponent,
-    ContactezNousComponent,
     ConnexionComponent,
     FootbarComponent,
     FilterBarComponent,
@@ -52,6 +52,7 @@ import { SuppressionCharactersComponent } from './components/suppression-charact
     HttpClientModule,
     NgSelectModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

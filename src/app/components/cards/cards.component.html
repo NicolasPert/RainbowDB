@@ -1,15 +1,17 @@
 <div  class="card shadow style"  style="width: 12rem; height: auto;">
-<img *ngIf="character.picture" src="{{ characterImage }}" alt="image du personnage">
-<div  class="d-flex flex-direction-row">
-<div [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/x-circle.svg" alt="icone modifier">modif</div>
-<div [routerLink]="['../page-admin/suppression-characters', character.id]"><img src="../../../assets/images/x-circle.svg" alt="icone supprimer"></div>
+<img src="../../../assets/images/favoris.png" class="colorTaille" (click)="ajoutFavoris()">
+<img src="../../../assets/images/favorisChecked.png" class="colorTaille"  (click)="ajoutFavoris()">
+<img *ngIf="character.picture" src="{{ characterImage }}" class="imgCard" alt="image du personnage">
+<div  class="d-flex flex-direction-row justify-content-between" >
+<div  *ngIf="!admin" [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/crayon.png" alt="icone modifier" class="taille1"></div>
+<div  *ngIf="!admin" [routerLink]="['../page-admin/suppression-characters', character.id]"><img src="../../../assets/images/poubelle.png" alt="icone supprimer" class="taille2"></div>
 </div>
 <div class="card-body">
-  <h5 class="card-title">{{character.name}}</h5>
+  <h5 class="card-title">{{character.name}}</h5><hr>
   <h6>Film :</h6>
-  <p *ngFor="let movie of character.to_in" >{{ movie.name }}</p>
+  <p *ngFor="let movie of character.to_in" >{{ movie.name }}</p> <hr>
   <h6>Univers :</h6>
-  <p *ngFor="let univer of character.belong" >{{ univer.name }}</p>
+  <p *ngFor="let univer of character.belong" >{{ univer.name }}</p><hr>
   <h6>Couleurs :</h6>
   <p class="container-fluid" *ngFor="let color of character.to_own" >{{ color.name }},</p>
   </div>

@@ -1,3 +1,4 @@
+import { Character } from "./character";
 
 
 export interface User {
@@ -5,6 +6,7 @@ export interface User {
   username: string;
   email: string;
   password?: string;
-  password_validate: string;
+  password_validate?: string;
   admin: boolean;
- }
+  to_likes: Character[];
+}

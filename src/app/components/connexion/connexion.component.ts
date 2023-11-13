@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 // import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LoginUser } from 'src/models/loginUser';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-connexion',
@@ -11,33 +12,42 @@ import { LoginUser } from 'src/models/loginUser';
   styleUrls: ['./connexion.component.css'],
 })
 export class ConnexionComponent {
+  user!: User;
   userForm: FormGroup = new FormGroup({
-    nom: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
   isFormValidate = false;
   connexionKO = false;
 
-  constructor(private userService: UserService,
-    private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   onSubmitForm() {
     this.isFormValidate = true;
 
-    if (this.userForm.value) {
-      this.userService
-        .connexionUtilisateur(this.userForm.value)
-        .subscribe({
-          next: (response) => {
-            sessionStorage.setItem('token', response.accessToken);
-            //  this.router.navigate(['/arc-en-ciel']);
-          },
-          error: (error) => {
-            this.connexionKO = true;
-          },
-        });
-    }
-  }
+this.userService.connexionUtilisateur(this.userForm.value).subscribe({
+  next: (response) => {
+    console.log('Réponse du backend:', response);
+    sessionStorage.setItem('token', response.accessToken);
 
+    // if ('id' in response) {
+    //   console.log('ID renvoyé par le backend:', response.id);
+    //   sessionStorage.setItem('id', response.id);
+    // } else {
+    //   console.error(
+    //     "La propriété 'id' n'existe pas dans la réponse du backend."
+    //   );
+    // }
+
+    this.userService.getUserBy();
+    console.log('ceci est mon id',this.user);
+    
+    this.router.navigate(['/arc-en-ciel']);
+  },
+  error: (error) => {
+    this.connexionKO = true;
+  },
+});
+  }
 }
 

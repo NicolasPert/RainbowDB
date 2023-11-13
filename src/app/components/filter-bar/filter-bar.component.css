@@ -1,27 +1,51 @@
+.accordion-body {
+    height: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.custom-accordion-button {
+    background-image:url('../../../assets/images/Arc-en-Ciel.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 1.5rem;
+    width: 1.5rem;
+    height:1.5rem;
+
+}
+button {
+    border:none;
+    border-radius:28%;
+}
+
+.custom-accordion-button[aria-expanded="true"] {
+    transform: rotate(180deg);
+
+}
+
 
 .taille-image {
-    width:3rem;
+    width:1.5rem;
 }
 
 
 
 .input-style[type="checkbox"] {
-    display: none;
+     display: none; 
     
 
 }
 
 .label-style {
-    width:5rem;
+    width:6rem;
     padding: 0.4rem;
-    border-radius: 0 125% 105% 0;
+    border-radius: 0 125% 125% 0;
     color: rgb(7, 7, 7);
     border: 1px solid #807f7f;
 }
 
 .label-style:hover {
     width:8rem;
-  
 }
 
 .active-filter {
@@ -34,6 +58,13 @@
     margin: 0;
     width: 1rem;
     /* padding: 15px; */
+}
+
+.Star-Wars {
+    background-image: url(../../../assets/images/Star_Wars_Logo.svg);
+    background-position: cover;
+    background-repeat: no-repeat;
+    background-size:contain;
 }
 
 #jaune {

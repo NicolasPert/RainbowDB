@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { PictureService } from 'src/app/services/picture.service';
 import { Character } from 'src/models/character';
 import { HttpClient } from '@angular/common/http';
+import { User } from 'src/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cards',
@@ -10,12 +12,28 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CardsComponent {
   @Input() character!: Character;
+  @Input() user!: User;
   currentImage!: Blob;
   characterImage!: any;
+  admin: boolean = false;
+  to_likes!: Character[];
+  estFavoris: boolean = false;
 
-  constructor(private pictureService: PictureService) {}
+  constructor(
+    private pictureService: PictureService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    const userId = sessionStorage.getItem('id');
+    if (userId) {
+      this.userService.getUser().subscribe((user: User) => {
+        this.admin = user.admin;
+        this.to_likes = user.to_likes;
+        console.log('mon admin',this.admin);
+        
+      });
+    }
     // Initialisation du composant
 
     const CharacterIdPicture = Number(this.character.picture.id);
@@ -40,5 +58,32 @@ export class CardsComponent {
     reader.addEventListener('load', () => {
       this.characterImage = reader.result; // Affecte l'image créée à la propriété characterImage pour l'affichage.
     });
+  }
+
+  ajoutFavoris() {
+    const characterId = this.character.id;
+
+     if (this.estFavoris) {
+       // Le tableau est dans les favoris, supprimez-le
+       (this.user.to_likes =
+         this.user.to_likes.filter((t) => t.id !== characterId)),
+         this.userService
+           .updateUser(this.user)
+           .subscribe(() => {
+             this.estFavoris = false;
+           });
+     } else {
+       // Le tableau n'est pas dans les favoris, ajoutez-le
+       this.user.to_likes = [
+         ...this.user.to_likes,
+         this.character,
+       ];
+
+       this.userService
+         .updateUser(this.user)
+         .subscribe(() => {
+           this.estFavoris = true;
+         });
+     }
   }
 }

@@ -7,49 +7,77 @@
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   "
 >
-
-  <div clas="px-3 dropdown">
-      <a class="dropdown-toggle fs-5 fw-semibold" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-    <img src="../../../assets/images/Arc-en-Ciel.png" alt="Couleurs" class="taille-image">
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <div *ngFor="let colors of couleursParents" >
-      <label id="{{ colors }}" class="label-style">
-      <input
-      (focus)="onFocus()" (blur)="onBlur()" [ngClass]="{'active-filter': isFilterActive}"
-      type="checkbox"
-      class="input-style dropdown-item"
-      value="{{ colors }}"
-      id="{{ colors }}"
-      autocomplete="off"
-      (change)="onCheckColors($event)"
-      />
-      {{ colors }}</label
-      >
-    </div>
-  </div>
-  </div>
-  <div class="px-3">
-    <p class="fs-5 fw-semibold">Univers</p>
-    <div class="form-check" *ngFor="let univers of universParents">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value="{{ univers }}"
-        id="{{ univers }}"
-        (change)="onCheckUnivers($event)"
-      />
-      <label for="form-check-label">
-        {{ univers }}
-      </label>
+  <p>Catégories</p>
+  <div class="accordion" id="accordionColors">
+    <div class="accordion-item">
+      <div clas="px-3 dropdown">
+        <h2 class="accordion-header" id="headingColors">
+          <button
+            class="collapsed fs-5 fw-semibold custom-accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseColors"
+            aria-expanded="true"
+            aria-controls="collapseColors"
+          ></button>
+        </h2>
+        <div
+          id="collapseColors"
+          class="accordion-collapse collapse show"
+          aria-labelledby="headingColors"
+          data-bs-parent="#accordionExample"
+        >
+          <div *ngFor="let colors of couleursParents">
+            <label id="{{ colors }}" class="label-style">
+              <input
+                type="checkbox"
+                (focus)="onFocus()"
+                (blur)="onBlur()"
+                class="input-style form-check-input"
+                value="{{ colors }}"
+                id="{{ colors }}"
+                (change)="onCheckColors($event)"
+                [ngClass]="{ 'active-filter': isFilterActive }"
+              />
+              {{ colors }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="accordion" id="accordionUnivers">
+        <h2 class="accordion-header" id="headingUnivers">
+          <button
+            class="collapsed fs-5 fw-semibold custom-accordion-button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseUnivers"
+            aria-expanded="true"
+            aria-controls="collapseUnivers"
+          ></button>
+        </h2>
+        <div
+          id="collapseUnivers"
+          class="accordion-collapse collapse show"
+          aria-labelledby="headingUnivers"
+          data-bs-parent="#accordionExample"
+        >
+          <div *ngFor="let univers of universParents">
+            <label
+              [class]="getCssClass(univers)"
+              (change)="onCheckUnivers($event)"
+              id="{{ univers }}"
+              class="label-style"
+            >
+              {{ univers }}
+              <input
+                class="input-style form-check-input"
+                type="checkbox"
+                value="{{ univers }}"
+                id="{{ univers }}"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<!-- <input type="file" (change)="onChange($event)"> -->
-
-<!-- (clickCategorie)="changeCategorie()" -->
-
-<!-- (change)="onCheckCategory($event)" -->
-
-<!-- *ngFor="let categorie of categoriesRecup" -->
