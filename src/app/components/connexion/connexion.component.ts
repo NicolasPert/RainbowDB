@@ -30,17 +30,8 @@ this.userService.connexionUtilisateur(this.userForm.value).subscribe({
     console.log('Réponse du backend:', response);
     sessionStorage.setItem('token', response.accessToken);
 
-    // if ('id' in response) {
-    //   console.log('ID renvoyé par le backend:', response.id);
-    //   sessionStorage.setItem('id', response.id);
-    // } else {
-    //   console.error(
-    //     "La propriété 'id' n'existe pas dans la réponse du backend."
-    //   );
-    // }
-
     this.userService.getUserBy();
-    console.log('ceci est mon id',this.user);
+    // console.log('ceci est mon id',this.user);
     
     this.router.navigate(['/arc-en-ciel']);
   },

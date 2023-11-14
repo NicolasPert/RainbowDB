@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { PictureService } from 'src/app/services/picture.service';
 import { Character } from 'src/models/character';
 import { HttpClient } from '@angular/common/http';
@@ -10,14 +10,17 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css'],
 })
-export class CardsComponent {
+export class CardsComponent  {
+  @Input() favoris!: Number;
   @Input() character!: Character;
   @Input() user!: User;
   currentImage!: Blob;
   characterImage!: any;
-  admin: boolean = false;
-  to_likes!: Character[];
+  isAdmin: boolean = false;
+  // to_likes!: Character[];
   estFavoris: boolean = false;
+  // isLikes: boolean = false;
+  
 
   constructor(
     private pictureService: PictureService,
@@ -25,17 +28,13 @@ export class CardsComponent {
   ) {}
 
   ngOnInit() {
-    this.userService.getUser().subscribe({
-      next: (response) => {
-        this.user = response;
-        this.admin = this.user.admin;
 
-      },
-      error: (error) => {
-        this.admin = true;
+
+    this.userService.isAdmin$.subscribe({
+      next: (response) => {
+        this.isAdmin = response;
       },
     });
-  
 
     const CharacterIdPicture = Number(this.character.picture.id);
 
@@ -52,6 +51,10 @@ export class CardsComponent {
     });
   }
 
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log('Les changement dans la carte : ', changes);
+  // }
+
   createImageFromBlob(image: Blob) {
     // Fonction pour créer une image à partir d'un Blob.
     let reader = new FileReader();
@@ -61,24 +64,4 @@ export class CardsComponent {
     });
   }
 
-  ajoutFavoris() {
-    const characterId = this.character.id;
-
-    if (this.estFavoris) {
-      // Le tableau est dans les favoris, supprimez-le
-      (this.user.to_likes = this.user.to_likes.filter(
-        (t) => t.id !== characterId
-      )),
-        this.userService.updateUser(this.user).subscribe(() => {
-          this.estFavoris = false;
-        });
-    } else {
-      // Le tableau n'est pas dans les favoris, ajoutez-le
-      this.user.to_likes = [...this.user.to_likes, this.character];
-
-      this.userService.updateUser(this.user).subscribe(() => {
-        this.estFavoris = true;
-      });
-    }
-  }
 }

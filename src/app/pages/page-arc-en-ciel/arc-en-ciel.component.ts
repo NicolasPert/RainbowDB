@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { PictureService } from 'src/app/services/picture.service';
@@ -17,6 +17,7 @@ import { User } from 'src/models/user';
 })
 export class ArcEnCielComponent {
   @Input() user!: User[];
+  @Output() ajouterFavoris: EventEmitter<User[]> = new EventEmitter<User[]>();
   users!: User;
   characterToDisplay: Character[] = [];
   pictureToDisplay: Picture[] = [];
@@ -30,6 +31,9 @@ export class ArcEnCielComponent {
   allCharacters!: Character[];
   colorsChecked!: string[];
   characters: Character[] = [];
+  character!: Character;
+  to_likes!: Character[];
+  estFavoris: boolean = false;
 
   constructor(
     private characterService: CharacterService,
@@ -40,6 +44,13 @@ export class ArcEnCielComponent {
   ) {}
 
   ngOnInit(): void {
+    this.userService.getUser().subscribe((user) => {
+      this.users = user;
+      this.estFavoris = user.to_likes.includes(this.character);
+      // initialiser ici la valeur de estFavoris
+      // Si le personnage est trouvé dans le tableau de like du user => true sinon false
+    });
+
     this.characterService.getCharacters().subscribe((characters) => {
       // Récupération des personnages depuis le service
       this.characterToDisplay = characters;
@@ -62,21 +73,6 @@ export class ArcEnCielComponent {
       }
       // console.log(this.colorsToDisplay);
     });
-
-    // const userId = sessionStorage.getItem('id');
-    // if (userId) {
-    //   this.userService.getUser().subscribe({
-    //     next: (response) => {
-    //       this.users = response;
-    //     },
-    //     error: (error) => {
-    //       console.error(
-    //         "Erreur lors de la récupération des informations de l'utilisateur",
-    //         error
-    //       );
-    //     },
-    //   });
-    // }
   }
 
   aLecouteDeLenfant(categoryDeLenfant: string[]) {
@@ -160,5 +156,43 @@ export class ArcEnCielComponent {
         // console.log(error, `ceci est mon erreur `);
       },
     });
+  }
+
+  // Méthode pour ajouter ou supprimer un character des favoris
+  ajouterAuxFavoris() {
+    // Assurez-vous d'avoir l'ID de l'utilisateur
+    const characterId = this.character.id;
+
+    if (this.estFavoris) {
+      // Le character est dans les favoris, supprimez-le
+      (this.users.to_likes = this.users.to_likes.filter(
+        (t) => t.id !== characterId
+      )),
+        this.userService.updateUser(this.users).subscribe(() => {
+          // ici j'emets la reponse vers le composant character list
+          this.ajouterFavoris.emit(this.user);
+          this.estFavoris = false;
+        });
+      console.log(
+        `là j'ai mon tableau de favoris si suppression `,
+        this.users.to_likes
+      );
+    } else {
+      // Le character n'est pas dans les favoris, ajoutez-le
+
+      this.users.to_likes = [...this.users.to_likes, this.character];
+      console.log(
+        `là j'ai mon tableau de favoris si ajout `,
+        this.users.to_likes
+      );
+
+      this.userService.updateUser(this.users).subscribe(() => {
+          this.ajouterFavoris.emit(this.user);
+
+        // ici j'emets la reponse vers le composant character list
+        this.estFavoris = true;
+      });
+      console.log('ceci est mon user après la méthode', this.users);
+    }
   }
 }

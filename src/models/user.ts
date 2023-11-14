@@ -9,4 +9,5 @@ export interface User {
   password_validate?: string;
   admin: boolean;
   to_likes: Character[];
+ 
 }

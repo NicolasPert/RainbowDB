@@ -17,6 +17,7 @@ a {
 a:hover {
     color:#ec5316;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .a2 {

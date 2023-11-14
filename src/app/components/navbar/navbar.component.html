@@ -11,15 +11,15 @@
     <div class="ml-auto">
       <div class="collapse navbar-collapse ml-auto" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item" >
-            
-            <a *ngIf="user.admin"
+          <li class="nav-item">
+            <a
+              *ngIf="isAdmin"
               class="btn btn2 a2 m-2"
               alt="accès page admin"
               title="accès page admin"
               aria-current="page"
               routerLinkActive="ma-classe-active"
-              [routerLink]="['../page-admin/ajouter-characters']"
+              [routerLink]="['/page-admin/ajouter-characters']"
             >
               Ajouter un personnage
             </a>
@@ -30,20 +30,31 @@
               title="acceder à l'arc-en-ciel"
               class="nav-link btn1 m-2"
               routerLinkActive="ma-classe-active"
-              [routerLink]="['arc-en-ciel']"
+              [routerLink]="['/arc-en-ciel']"
             >
               Arc-en-Ciel</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isAdmin">
             <a
               alt="Connexion"
               title="Connexion"
               class="nav-link btn1 m-2"
               routerLinkActive="ma-classe-active"
-              [routerLink]="['connexion']"
+              [routerLink]="['/Connexion']"
             >
               Connexion</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="isAdmin">
+            <a
+              alt="Déconnexion"
+              title="Déconnexion"
+              class="nav-link btn1 m-2"
+              routerLinkActive="ma-classe-active"
+              (click)="deconnexion()"
+            >
+              Deconnexion</a
             >
           </li>
         </ul>

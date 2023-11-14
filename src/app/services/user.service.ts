@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../../models/user';
 import { LoginUser } from '../../models/loginUser';
 import { ReponseConnexion } from '../../models/responseConnexion';
@@ -10,6 +10,8 @@ import { ReponseConnexion } from '../../models/responseConnexion';
 })
 export class UserService {
   private baseApiUrl = 'http://localhost:3000/api';
+  public isAdmin$ = new BehaviorSubject<boolean> (JSON.parse(sessionStorage.getItem('isAdmin')!));
+  public isLike$ = new BehaviorSubject<boolean> (JSON.parse(sessionStorage.getItem('islikes')!));
 
   constructor(private http: HttpClient) {}
 
@@ -33,18 +35,17 @@ export class UserService {
     );
   }
 
-  // getUser(): Observable<User> {
-  //   const headers = this.setHeaders();
-  //   return this.http.get<User>(`${this.baseApiUrl}/user`, { headers }).pipe(
-  //     tap((user: User) => {
-  //       sessionStorage.setItem('isAdmin', user.admin.toString());
-  //     })
-  //   );
-  // }
+
 
   getUser(): Observable<User> {
     const headers  = this.setHeaders();
-    return this.http.get<User>(`${this.baseApiUrl}/user/current`, { headers });
+    return this.http.get<User>(`${this.baseApiUrl}/user/current`, { headers }).pipe(
+      tap((user: User) => {
+        sessionStorage.setItem('isAdmin', user.admin.toString());
+        this.isAdmin$.next(JSON.parse(sessionStorage.getItem('isAdmin')!));
+        this.isLike$.next(JSON.parse(sessionStorage.getItem('isLikes')!));
+      })
+    );;
   }
 
   getUserBy(): Observable<User> {
@@ -55,9 +56,10 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<User>(`${this.baseApiUrl}/user/${user.id}`, {
-      to_likes: user.to_likes,
-      Headers,
-    });
-  }
+  const headers = new HttpHeaders();
+
+  return this.http.patch<User>(`${this.baseApiUrl}/user/${user.id}`, { to_likes: user.to_likes }, { headers });
+}
+
+
 }

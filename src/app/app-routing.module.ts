@@ -22,7 +22,7 @@ const routes: Routes = [
     component: SuppressionCharactersComponent,
   },
   { path: 'Inscrire', component: EnregistrerComponent },
-  { path: 'connexion', component: ConnexionComponent },
+  { path: 'Connexion', component: ConnexionComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

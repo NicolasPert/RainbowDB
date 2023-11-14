@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/models/user';
 
@@ -11,20 +12,21 @@ export class NavbarComponent {
   @Input() user!: User;
   isAdmin: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+    private route: Router) {}
 
   ngOnInit(): void {
-      this.userService.getUser().subscribe({
+    this.userService.isAdmin$.subscribe({
       next: (response) => {
-        this.user = response;
-        this.isAdmin = this.user.admin;
-
-        const isAdmin = sessionStorage.getItem('isAdmin');
-        this.isAdmin = isAdmin ? isAdmin === 'true' : false;
-        
-      },
-      error: (error) => {
-        this.isAdmin = true; 
+        this.isAdmin = response;
       },
     });
-}}
+  }
+  deconnexion() {
+    sessionStorage.clear();
+    this.userService.isAdmin$.next(JSON.parse(sessionStorage.getItem('isAdmin')!));
+    this.route.navigate(['/Connexion']);
+
+  }
+}
+
