@@ -11,11 +11,12 @@
     </div>
     <div>
       <app-character-list
-      (favoris)="ajouterFavoris($event)"
-        [character]="characterToDisplay"
-        class="d-flex flex-wrap p-2"
+      (characterFavoris)="ajouterAuxFavoris($event)"
+      [character]="characterToDisplay"
+      class="d-flex flex-wrap p-2"
       ></app-character-list>
     </div>
   </div>
+  
 
 

@@ -9,13 +9,16 @@ import { User } from 'src/models/user';
 })
 export class CharacterListComponent {
   @Input() character!: Character[];
-  characterFavoris!: User[];
+  @Output() characterFavoris = new EventEmitter<Character>();
+
   
 
 
-  favoris(favorisCharacter: User[]) {
+  addFavorites(favorisCharacter: Character) {
+    console.log(favorisCharacter);
+    
 
-    this.characterFavoris = favorisCharacter;
+    this.characterFavoris.emit(favorisCharacter)
 
   }
 

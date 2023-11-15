@@ -1,6 +1,6 @@
 <div  class="card shadow style"  style="width: 12rem; height: auto;">
-<img src="../../../assets/images/favoris.png" class="colorTaille" *ngIf="!estFavoris" >
-<img src="../../../assets/images/favorisChecked.png" class="colorTaille" *ngIf="estFavoris" >
+<img src="../../../assets/images/favoris.png" class="colorTaille" *ngIf="!estFavoris" (click)="envoieFav(character)">
+<img src="../../../assets/images/favorisChecked.png" class="colorTaille" *ngIf="estFavoris" (click)="envoieFav(character)">
 <img *ngIf="character.picture" src="{{ characterImage }}" class="imgCard" alt="image du personnage">
 <div  class="d-flex flex-direction-row justify-content-between" >
 <div  *ngIf="isAdmin" [routerLink]="['../page-admin/modifier-characters', character.id]"><img src="../../../assets/images/crayon.png" alt="icone modifier" class="taille1"></div>

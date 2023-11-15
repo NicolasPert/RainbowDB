@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { PictureService } from 'src/app/services/picture.service';
 import { Character } from 'src/models/character';
 import { HttpClient } from '@angular/common/http';
@@ -10,17 +17,17 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css'],
 })
-export class CardsComponent  {
+export class CardsComponent {
+  @Input() estFavoris: boolean = false;
   @Input() favoris!: Number;
   @Input() character!: Character;
   @Input() user!: User;
   currentImage!: Blob;
   characterImage!: any;
   isAdmin: boolean = false;
-  // to_likes!: Character[];
-  estFavoris: boolean = false;
-  // isLikes: boolean = false;
+  favori!: User;
   
+  @Output() clickFav = new EventEmitter<Character>();
 
   constructor(
     private pictureService: PictureService,
@@ -28,13 +35,13 @@ export class CardsComponent  {
   ) {}
 
   ngOnInit() {
-
-
     this.userService.isAdmin$.subscribe({
       next: (response) => {
         this.isAdmin = response;
       },
     });
+
+
 
     const CharacterIdPicture = Number(this.character.picture.id);
 
@@ -51,9 +58,9 @@ export class CardsComponent  {
     });
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log('Les changement dans la carte : ', changes);
-  // }
+  envoieFav(favTab: Character) {
+    this.clickFav.emit(favTab);
+  }
 
   createImageFromBlob(image: Blob) {
     // Fonction pour créer une image à partir d'un Blob.
@@ -63,5 +70,4 @@ export class CardsComponent  {
       this.characterImage = reader.result; // Affecte l'image créée à la propriété characterImage pour l'affichage.
     });
   }
-
 }

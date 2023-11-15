@@ -16,8 +16,11 @@ import { User } from 'src/models/user';
   styleUrls: ['./arc-en-ciel.component.css'],
 })
 export class ArcEnCielComponent {
+  
+
+
   @Input() user!: User[];
-  @Output() ajouterFavoris: EventEmitter<User[]> = new EventEmitter<User[]>();
+  
   users!: User;
   characterToDisplay: Character[] = [];
   pictureToDisplay: Picture[] = [];
@@ -159,9 +162,9 @@ export class ArcEnCielComponent {
   }
 
   // Méthode pour ajouter ou supprimer un character des favoris
-  ajouterAuxFavoris() {
+  ajouterAuxFavoris(Char: Character) {
     // Assurez-vous d'avoir l'ID de l'utilisateur
-    const characterId = this.character.id;
+    const characterId = Char.id;
 
     if (this.estFavoris) {
       // Le character est dans les favoris, supprimez-le
@@ -170,7 +173,7 @@ export class ArcEnCielComponent {
       )),
         this.userService.updateUser(this.users).subscribe(() => {
           // ici j'emets la reponse vers le composant character list
-          this.ajouterFavoris.emit(this.user);
+          
           this.estFavoris = false;
         });
       console.log(
@@ -180,19 +183,19 @@ export class ArcEnCielComponent {
     } else {
       // Le character n'est pas dans les favoris, ajoutez-le
 
-      this.users.to_likes = [...this.users.to_likes, this.character];
+      this.users.to_likes = [...this.users.to_likes, Char];
       console.log(
         `là j'ai mon tableau de favoris si ajout `,
         this.users.to_likes
       );
 
       this.userService.updateUser(this.users).subscribe(() => {
-          this.ajouterFavoris.emit(this.user);
+          
 
         // ici j'emets la reponse vers le composant character list
         this.estFavoris = true;
       });
-      console.log('ceci est mon user après la méthode', this.users);
+      // console.log('ceci est mon user après la méthode', this.users);
     }
   }
 }

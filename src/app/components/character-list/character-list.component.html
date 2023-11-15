@@ -1,1 +1,1 @@
-<app-cards *ngFor="let character of character" [character]="character" ></app-cards>
+<app-cards *ngFor="let character of character" [character]="character" (clickFav)="addFavorites($event)" ></app-cards>

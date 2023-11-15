@@ -28,7 +28,7 @@ export class UserService {
   }
 
   connexionUtilisateur(data: LoginUser): Observable<ReponseConnexion> {
-    console.log(`voici ma data :`, data);
+    // console.log(`voici ma data :`, data);
     return this.http.post<ReponseConnexion>(
       `${this.baseApiUrl}/auth/login`,
       data
