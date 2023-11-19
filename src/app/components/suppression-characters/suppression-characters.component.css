@@ -14,3 +14,15 @@
     border: 1px solid white;
     padding:  0.55rem 0.45rem;
 }
+
+.container {
+    padding-top: 12rem;
+}
+
+
+@media only screen and (max-width: 48rem) {
+
+    .container {
+        padding-top: 7.5rem;
+    }
+}

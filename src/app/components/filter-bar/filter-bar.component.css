@@ -13,6 +13,22 @@
     height:1.5rem;
 
 }
+
+.custom-accordion-button1 {
+    background-image: url('../../../assets/images/univers.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+
+}
+
+.custom-accordion-button1[aria-expanded="true"] {
+    transform: rotate(180deg);
+
+}
+
 button {
     border:none;
     border-radius:28%;
@@ -48,9 +64,7 @@ button {
     width:8rem;
 }
 
-.active-filter {
-    width: 8rem;
-}
+
 
 
 .custom-side-bar {
@@ -139,4 +153,13 @@ button {
 #blanc {
     background-color: #ffffff;
     border-color: 1px solid #5c5a5a;
+}
+
+
+.position {
+    position: absolute;
+        top: 8em;
+
+
+        z-index: 2;
 }

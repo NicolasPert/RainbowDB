@@ -1,22 +1,24 @@
-
-  <div class="containerComponent">
-    <div class="filter">
-      <app-search-bar (inputUser)="onEnterSearch($event)"></app-search-bar>
-      <app-filter-bar
-        [universParents]="universToDisplay"
-        [couleursParents]="colorsToDisplay"
-        (universEnvoiParents)="aLecouteDeLenfant($event)"
-        (colorsEnvoieParents)="aLecouteDesCouleurs($event)"
-      ></app-filter-bar>
-    </div>
-    <div>
-      <app-character-list
-      (characterFavoris)="ajouterAuxFavoris($event)"
-      [character]="characterToDisplay"
-      class="d-flex flex-wrap p-2"
-      ></app-character-list>
+<div class="containerComponent">
+  <div class="filter">
+    <div><app-search-bar (inputUser)="onEnterSearch($event)"></app-search-bar></div>
+    <div><app-filter-bar
+      [universParents]="universToDisplay"
+      [couleursParents]="colorsToDisplay"
+      (universEnvoiParents)="aLecouteDeLenfant($event)"
+      (colorsEnvoieParents)="aLecouteDesCouleurs($event)"
+      (favorisEnvoieParents)="aLecouteDesFavoris($event)"
+    ></app-filter-bar></div>
+  </div>
+  <div>
+    <div class="d-flex flex-wrap padding">
+      <app-cards
+        *ngFor="let character of characterToDisplay"
+        [user]="users"
+        [character]="character"
+        (clickFav)="ajouterAuxFavoris($event)"
+        [like]="estFavori(character)"
+      >
+      </app-cards>
     </div>
   </div>
-  
-
-
+</div>

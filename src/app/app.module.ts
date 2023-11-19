@@ -20,10 +20,9 @@ import { AdminComponent } from './pages/page-admin/admin.component';
 import { ConnexionComponent } from './components/connexion/connexion.component';
 import { AjouterComponent } from './components/ajouter-characters/ajouter-characters.component';
 import { ModifierComponent } from './components/modifier-characters/modifier.component';
-import { CharacterListComponent } from './components/character-list/character-list.component';
 import { SuppressionCharactersComponent } from './components/suppression-characters/suppression-characters.component';
-import { compileComponentFromMetadata } from '@angular/compiler';
 import { CommonModule } from '@angular/common';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { CommonModule } from '@angular/common';
     AjouterComponent,
     ModifierComponent,
     CardsComponent,
-    CharacterListComponent,
     SuppressionCharactersComponent,
   ],
   imports: [
@@ -54,7 +52,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     CommonModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

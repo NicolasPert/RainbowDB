@@ -15,6 +15,7 @@
 
 .imgCard {
    border-radius: 1rem;
+   width:11.5rem;
 }
 
 .taille2 {
@@ -33,3 +34,16 @@
 .couleurs {
    text-wrap:balance;
 }
+
+#element1 {
+   position:absolute;
+   left:1rem;
+   z-index: 2;
+}
+
+#element2 {
+   z-index: 1;
+}
+
+
+

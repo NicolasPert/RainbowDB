@@ -1,5 +1,5 @@
 <div
-  class="custom-side-bar border-end"
+  class="custom-side-bar position"
   style="
     width: 5rem;
     background: hsla(0, 0%, 100%, 0.55);
@@ -28,16 +28,15 @@
           data-bs-parent="#accordionExample"
         >
           <div *ngFor="let colors of couleursParents">
-            <label id="{{ colors }}" class="label-style">
+            
+            <label id="{{ colors }}" class="label-style" (click)="onFilterClick($event)">
               <input
                 type="checkbox"
-                (focus)="onFocus()"
-                (blur)="onBlur()"
                 class="input-style form-check-input"
                 value="{{ colors }}"
                 id="{{ colors }}"
                 (change)="onCheckColors($event)"
-                [ngClass]="{ 'active-filter': isFilterActive }"
+                
               />
               {{ colors }}
             </label>
@@ -47,7 +46,7 @@
       <div class="accordion" id="accordionUnivers">
         <h2 class="accordion-header" id="headingUnivers">
           <button
-            class="collapsed fs-5 fw-semibold custom-accordion-button"
+            class="collapsed fs-5 fw-semibold custom-accordion-button1"
             data-bs-toggle="collapse"
             data-bs-target="#collapseUnivers"
             aria-expanded="true"
@@ -77,6 +76,9 @@
             </label>
           </div>
         </div>
+        <div > <label (change)="onCheckFavoris($event)" *ngIf="connected">
+          <input type="checkbox"><img src="../../../assets/images/favorisChecked.png">
+        </label></div>
       </div>
     </div>
   </div>

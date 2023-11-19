@@ -7,3 +7,13 @@
     justify-content: flex-start;
 }
 
+.padding {
+    padding: 3rem 0 0 0;
+}
+
+@media only screen and (max-width: 48rem) {
+    .padding {
+            left:0;
+        }
+}
+

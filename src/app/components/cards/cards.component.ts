@@ -11,6 +11,7 @@ import { Character } from 'src/models/character';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { CharacterService } from 'src/app/services/character.service';
 
 @Component({
   selector: 'app-cards',
@@ -18,16 +19,21 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./cards.component.css'],
 })
 export class CardsComponent {
-  @Input() estFavoris: boolean = false;
+  estFavoris: boolean = false;
   @Input() favoris!: Number;
   @Input() character!: Character;
   @Input() user!: User;
   currentImage!: Blob;
   characterImage!: any;
   isAdmin: boolean = false;
-  favori!: User;
-  
-  @Output() clickFav = new EventEmitter<Character>();
+  monFavoris!: Character;
+  tabFav!: Character[];
+  @Input() like!: boolean;
+  @Output() clickFav = new EventEmitter<{
+    character: Character;
+    isFavoris: boolean;
+  }>();
+  connected: boolean = false;
 
   constructor(
     private pictureService: PictureService,
@@ -35,13 +41,17 @@ export class CardsComponent {
   ) {}
 
   ngOnInit() {
+    // console.log('mon user from card', this.user);
+    // console.log('mon character dans cards ', this.character);
+
     this.userService.isAdmin$.subscribe({
       next: (response) => {
         this.isAdmin = response;
       },
     });
 
-
+    this.affichage(this.connected);
+    // console.log('mon etat affichage', this.connected);
 
     const CharacterIdPicture = Number(this.character.picture.id);
 
@@ -58,8 +68,17 @@ export class CardsComponent {
     });
   }
 
+  affichage(on: boolean) {
+    this.connected = on;
+    if (this.user) {
+      this.connected = true;
+    } else {
+      this.connected = false;
+    }
+  }
+
   envoieFav(favTab: Character) {
-    this.clickFav.emit(favTab);
+    this.clickFav.emit({ character: favTab, isFavoris: !this.like });
   }
 
   createImageFromBlob(image: Blob) {

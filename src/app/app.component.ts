@@ -14,19 +14,7 @@ export class AppComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    // this.userService.getUser().subscribe({
-    //   next: (response) => {
-    //     this.user = response;
-    //     this.admin = this.user.admin;
 
-    //     const isAdmin = sessionStorage.getItem('isAdmin');
-    //     this.admin = isAdmin ? isAdmin === 'true' : false;
-        
-    //   },
-    //   error: (error) => {
-    //     this.admin = true; 
-    //   },
-    // });
   }
   }
 
