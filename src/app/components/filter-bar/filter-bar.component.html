@@ -1,5 +1,5 @@
 <div
-  class="custom-side-bar position"
+  class="custom-side-bar"
   style="
     width: 5rem;
     background: hsla(0, 0%, 100%, 0.55);
@@ -63,6 +63,7 @@
             <label
               [class]="getCssClass(univers)"
               (change)="onCheckUnivers($event)"
+              (click)="onFilterClick($event)"
               id="{{ univers }}"
               class="label-style"
             >
@@ -76,8 +77,8 @@
             </label>
           </div>
         </div>
-        <div > <label (change)="onCheckFavoris($event)" *ngIf="connected">
-          <input type="checkbox"><img src="../../../assets/images/favorisChecked.png">
+        <div > <label (change)="onCheckFavoris($event)" *ngIf="connected" >
+          <input type="checkbox" class="input-style"><img src="../../../assets/images/favorisChecked.png">
         </label></div>
       </div>
     </div>

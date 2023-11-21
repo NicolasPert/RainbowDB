@@ -45,7 +45,6 @@ button {
 }
 
 
-
 .input-style[type="checkbox"] {
      display: none; 
     
@@ -64,21 +63,53 @@ button {
     width:8rem;
 }
 
-
-
-
 .custom-side-bar {
-    z-index: -1;
+    z-index: 2;
     margin: 0;
     width: 1rem;
-    /* padding: 15px; */
+    position: fixed;
+    top: 8em;
 }
 
 .Star-Wars {
-    background-image: url(../../../assets/images/Star_Wars_Logo.svg);
-    background-position: cover;
-    background-repeat: no-repeat;
-    background-size:contain;
+    background:black;
+    color: yellow;
+    text-shadow: 2px 1px 2px yellow;
+    font-weight: 900;
+}
+
+.Marvel {
+    background: red;
+    color:white;
+    text-shadow: 1px 1px 1px white;
+    font-weight: 800;
+}
+
+.Pixar {
+    background:rgb(104, 104, 248);
+    text-shadow: 2px 2px 2px #0a0a0a;
+}
+
+.Disney-Channel {
+    background: white;
+    color:rgb(104, 104, 248);
+    text-shadow: 2px 2px 2px rgb(104, 104, 248);
+    text-wrap:wrap;
+}
+
+.Film-Disney {
+    background:rgb(58, 58, 230);
+    color:white;
+    text-shadow: 2px 2px 2px white;
+    
+}
+
+.Classique-Disney {
+    background:white;
+    color:rgb(241, 195, 95);
+    font-weight: 700;
+    text-shadow: 2px 2px 2px #0a0a0a;
+    
 }
 
 #jaune {
@@ -153,13 +184,4 @@ button {
 #blanc {
     background-color: #ffffff;
     border-color: 1px solid #5c5a5a;
-}
-
-
-.position {
-    position: absolute;
-        top: 8em;
-
-
-        z-index: 2;
 }

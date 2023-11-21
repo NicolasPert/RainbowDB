@@ -35,7 +35,7 @@ export class EnregistrerComponent {
       // Si tous les champs sont valides, alors continuez avec l'inscription.
       this.userService.inscriptionUtilisateur(this.user).subscribe({
         next: (response) => {
-          this.router.navigate(['../connect']);
+          this.router.navigate(['../Connexion']);
         },
         error: (error) => {
           this.inscriptionOK = false;

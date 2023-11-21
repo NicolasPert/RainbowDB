@@ -11,9 +11,9 @@ import { User } from 'src/models/user';
 export class NavbarComponent {
   @Input() user!: User;
   isAdmin: boolean = false;
+  connected: boolean = false;
 
-  constructor(private userService: UserService,
-    private route: Router) {}
+  constructor(private userService: UserService, private route: Router) {}
 
   ngOnInit(): void {
     this.userService.isAdmin$.subscribe({
@@ -21,12 +21,21 @@ export class NavbarComponent {
         this.isAdmin = response;
       },
     });
+    this.userService.isConnected$.subscribe((resp) => {
+      this.connected = resp;
+      console.log('connected', this.connected);
+    });
   }
   deconnexion() {
     sessionStorage.clear();
-    this.userService.isAdmin$.next(JSON.parse(sessionStorage.getItem('isAdmin')!));
+    this.userService.isAdmin$.next(
+      JSON.parse(sessionStorage.getItem('isAdmin')!)
+    );
+    this.userService.isConnected$.next(false);
     this.route.navigate(['/Connexion']);
-
   }
+
+
 }
+
 

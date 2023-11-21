@@ -14,11 +14,16 @@ export class UserService {
   public isAdmin$ = new BehaviorSubject<boolean>(
     JSON.parse(sessionStorage.getItem('isAdmin')!)
   );
-  public estFavoris$ = new BehaviorSubject<boolean>(
-    JSON.parse(sessionStorage.getItem('estFavoris')!)
-  );
+  public isConnected$: BehaviorSubject<boolean>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,) {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          this.isConnected$ = new BehaviorSubject(true);
+        } else {
+          this.isConnected$ = new BehaviorSubject(false);
+        }
+  }
 
   setHeaders() {
     const jwtToken = sessionStorage.getItem('token');

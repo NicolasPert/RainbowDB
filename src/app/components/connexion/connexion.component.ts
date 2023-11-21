@@ -22,23 +22,27 @@ export class ConnexionComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
+  login() {
+    this.userService.isConnected$.next(true);
+  }
+
   onSubmitForm() {
     this.isFormValidate = true;
 
-this.userService.connexionUtilisateur(this.userForm.value).subscribe({
-  next: (response) => {
-    console.log('Réponse du backend:', response);
-    sessionStorage.setItem('token', response.accessToken);
+    this.userService.connexionUtilisateur(this.userForm.value).subscribe({
+      next: (response) => {
+        console.log('Réponse du backend:', response);
+        sessionStorage.setItem('token', response.accessToken);
 
-    this.userService.getUserBy();
-    // console.log('ceci est mon id',this.user);
-    
-    this.router.navigate(['/arc-en-ciel']);
-  },
-  error: (error) => {
-    this.connexionKO = true;
-  },
-});
+        this.userService.getUserBy();
+        // console.log('ceci est mon id',this.user);
+
+        this.router.navigate(['/arc-en-ciel']);
+      },
+      error: (error) => {
+        this.connexionKO = true;
+      },
+    });
   }
 }
 

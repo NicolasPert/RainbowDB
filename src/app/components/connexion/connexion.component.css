@@ -2,9 +2,6 @@
     color: #064BA6;
 }
 
-/* .form-group {
-    background: hsla(0, 0%, 100%, 0.55);
-} */
 
 input {
     width:19rem;
@@ -12,5 +9,12 @@ input {
 }
 
 .container {
-    height: 200px;
+    height: 12rem;
+}
+
+@media only screen and (max-width: 48rem) {
+
+    input {
+        width:12rem;
+    }
 }

@@ -2,8 +2,12 @@ input {
     width: 11rem;
 }
 
+.position {
+    position:fixed;
+}
+
 @media only screen and (max-width: 48rem) {
     input {
-        width:5rem;
+        width:9rem;
     }
 }

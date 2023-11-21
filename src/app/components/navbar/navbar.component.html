@@ -35,18 +35,19 @@
               Arc-en-Ciel</a
             >
           </li>
-          <li class="nav-item" *ngIf="!isAdmin">
+          <li class="nav-item" *ngIf="!connected">
             <a
               alt="Connexion"
               title="Connexion"
               class="nav-link btn1 m-2"
               routerLinkActive="ma-classe-active"
               [routerLink]="['/Connexion']"
+              
             >
               Connexion</a
             >
           </li>
-          <li class="nav-item" *ngIf="isAdmin">
+          <li class="nav-item" *ngIf="connected">
             <a
               alt="Déconnexion"
               title="Déconnexion"
