@@ -2,8 +2,12 @@
     color: #064BA6;
 }
 
+h2 {
+    text-wrap:balance;
+}
+
 .container {
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 
 
