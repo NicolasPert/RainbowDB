@@ -31,7 +31,7 @@ export class ConnexionComponent {
 
     this.userService.connexionUtilisateur(this.userForm.value).subscribe({
       next: (response) => {
-        console.log('Réponse du backend:', response);
+        // console.log('Réponse du backend:', response);
         sessionStorage.setItem('token', response.accessToken);
 
         this.userService.getUserBy();

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormsModule,
   FormControl,
@@ -10,17 +10,16 @@ import { Router } from '@angular/router';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { MoviesService } from 'src/app/services/movies.service';
-// import { ColorsService } from 'src/app/services/colors.service';
+
 import { PictureService } from 'src/app/services/picture.service';
 import { UniversService } from 'src/app/services/univers.service';
 import { CreateCharacter } from 'src/models/createCharacter';
-// import { UniversService } from 'src/app/services/univers.service';
+
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
-// import { Movie } from 'src/models/movie';
+
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-ajouter',
@@ -50,6 +49,8 @@ export class AjouterComponent {
     private moviesService: MoviesService,
     private universService: UniversService
   ) {}
+
+    
 
   ngOnInit(): void {
     this.characterService.getCharacters().subscribe({
@@ -124,8 +125,9 @@ export class AjouterComponent {
     this.characterService
       .createCharacter(newCharacter)
       .subscribe((response: Character) => {
+          
+        // console.log('Personnage ajouté avec succès', response);
         this.router.navigate(['/arc-en-ciel']);
-        console.log('Personnage ajouté avec succès', response);
       });
   }
 
@@ -141,7 +143,7 @@ export class AjouterComponent {
         .subscribe((photo: Partial<Picture>) => {
           this.id_file = photo.id!;
 
-          alert('image postée');
+          // alert('image postée');
         });
     }
   }

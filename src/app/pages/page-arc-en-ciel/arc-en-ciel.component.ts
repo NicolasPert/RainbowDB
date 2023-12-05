@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { PictureService } from 'src/app/services/picture.service';
@@ -38,12 +39,14 @@ export class ArcEnCielComponent {
   estFavoris!: boolean;
   favoriteOfNotFavorite: boolean = false;
 
+
   constructor(
     private characterService: CharacterService,
     private universService: UniversService,
     private userService: UserService,
     private pictureService: PictureService,
-    private colorsService: ColorsService
+    private colorsService: ColorsService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -115,7 +118,6 @@ export class ArcEnCielComponent {
     this.universChecked = categoryDeLenfant;
     // console.log('ici mon cochage',this.universChecked);
     // console.log('ici ma cat coché',categoryDeLenfant);
-    
 
     this.onUserInteractionFiltre();
   }
@@ -144,84 +146,85 @@ export class ArcEnCielComponent {
     this.characterToDisplay = [...this.allCharacters]; // Réinitialise les personnages affichés.
 
     if (this.users) {
-    const favorisIds = this.users.to_likes.map((x) => x.id);
+      const favorisIds = this.users.to_likes.map((x) => x.id);
 
-    if (this.favoriteOfNotFavorite) {
-      this.characterToDisplay = this.characterToDisplay.filter((character) =>
-        favorisIds.includes(character.id)
-      );
-    }
-    if (this.universChecked) {
-      // Si des univers sont sélectionnés...
-      // console.log('CharacterToDisplay avant :', this.characterToDisplay);
-      this.characterToDisplay = this.characterToDisplay.filter((perso) => {
-        for (let j = 0; j < perso.belong.length; j++) {
+      if (this.favoriteOfNotFavorite) {
+        this.characterToDisplay = this.characterToDisplay.filter((character) =>
+          favorisIds.includes(character.id)
+        );
+      }
+      if (this.universChecked) {
+        // Si des univers sont sélectionnés...
+        // console.log('CharacterToDisplay avant :', this.characterToDisplay);
+        this.characterToDisplay = this.characterToDisplay.filter((perso) => {
+          for (let j = 0; j < perso.belong.length; j++) {
             //  console.log('Belong:', perso.belong[j]); // Vérifiez la structure de belong
-            //  console.log('Univers Checked:', this.universChecked); 
-          if (this.universChecked.includes(perso.belong[j].name)) {
-            // console.log('Included:', perso.belong[j].name);
-            return true;
-          }
-        }
-        return false;
-      }); // ...filtre les personnages en fonction des univers sélectionnés.
-      // console.log('CharacterToDisplay après :', this.characterToDisplay);
-    }
-    if (this.colorsChecked) {
-      this.characterToDisplay = this.characterToDisplay.filter((c) => {
-        return this.colorsChecked.every((x) => {
-          for (let i = 0; i < c.to_own.length; i++) {
-            if (c.to_own[i].name.includes(x)) {
+            //  console.log('Univers Checked:', this.universChecked);
+            if (this.universChecked.includes(perso.belong[j].name)) {
+              // console.log('Included:', perso.belong[j].name);
               return true;
             }
           }
           return false;
-        });
-      });
-    }
-
-    if (this.userInput) {
-      this.characterToDisplay = this.characterToDisplay.filter((c) =>
-        c.name.toLowerCase().includes(this.userInput.toLowerCase())
-      );
-    }
-    // console.log('mes perso triés : ', this.characterToDisplay);
-  } else {
-        if (this.universChecked) {
-          // Si des univers sont sélectionnés...
-          // console.log('CharacterToDisplay avant :', this.characterToDisplay);
-          this.characterToDisplay = this.characterToDisplay.filter((perso) => {
-            for (let j = 0; j < perso.belong.length; j++) {
-              //  console.log('Belong:', perso.belong[j]); // Vérifiez la structure de belong
-              //  console.log('Univers Checked:', this.universChecked);
-              if (this.universChecked.includes(perso.belong[j].name)) {
-                // console.log('Included:', perso.belong[j].name);
+        }); // ...filtre les personnages en fonction des univers sélectionnés.
+        // console.log('CharacterToDisplay après :', this.characterToDisplay);
+      }
+      if (this.colorsChecked) {
+        this.characterToDisplay = this.characterToDisplay.filter((c) => {
+          return this.colorsChecked.every((x) => {
+            for (let i = 0; i < c.to_own.length; i++) {
+              if (c.to_own[i].name.includes(x)) {
                 return true;
               }
             }
             return false;
-          }); // ...filtre les personnages en fonction des univers sélectionnés.
-          // console.log('CharacterToDisplay après :', this.characterToDisplay);
-        }
-        if (this.colorsChecked) {
-          this.characterToDisplay = this.characterToDisplay.filter((c) => {
-            return this.colorsChecked.every((x) => {
-              for (let i = 0; i < c.to_own.length; i++) {
-                if (c.to_own[i].name.includes(x)) {
-                  return true;
-                }
-              }
-              return false;
-            });
           });
-        }
+        });
+      }
 
-        if (this.userInput) {
-          this.characterToDisplay = this.characterToDisplay.filter((c) =>
-            c.name.toLowerCase().includes(this.userInput.toLowerCase())
-          );
-        }
-  }}
+      if (this.userInput) {
+        this.characterToDisplay = this.characterToDisplay.filter((c) =>
+          c.name.toLowerCase().includes(this.userInput.toLowerCase())
+        );
+      }
+      // console.log('mes perso triés : ', this.characterToDisplay);
+    } else {
+      if (this.universChecked) {
+        // Si des univers sont sélectionnés...
+        // console.log('CharacterToDisplay avant :', this.characterToDisplay);
+        this.characterToDisplay = this.characterToDisplay.filter((perso) => {
+          for (let j = 0; j < perso.belong.length; j++) {
+            //  console.log('Belong:', perso.belong[j]); // Vérifiez la structure de belong
+            //  console.log('Univers Checked:', this.universChecked);
+            if (this.universChecked.includes(perso.belong[j].name)) {
+              // console.log('Included:', perso.belong[j].name);
+              return true;
+            }
+          }
+          return false;
+        }); // ...filtre les personnages en fonction des univers sélectionnés.
+        // console.log('CharacterToDisplay après :', this.characterToDisplay);
+      }
+      if (this.colorsChecked) {
+        this.characterToDisplay = this.characterToDisplay.filter((c) => {
+          return this.colorsChecked.every((x) => {
+            for (let i = 0; i < c.to_own.length; i++) {
+              if (c.to_own[i].name.includes(x)) {
+                return true;
+              }
+            }
+            return false;
+          });
+        });
+      }
+
+      if (this.userInput) {
+        this.characterToDisplay = this.characterToDisplay.filter((c) =>
+          c.name.toLowerCase().includes(this.userInput.toLowerCase())
+        );
+      }
+    }
+  }
 
   async createImageFromBlob(image: Blob) {
     // Fonction pour créer une image à partir d'un Blob.

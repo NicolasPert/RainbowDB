@@ -11,10 +11,8 @@ img {
     width: 20%;
 }
 
-.padding {
-    padding: 0 10px;
-}
 
-@media only screen and (max-width: 48rem) {
-    
+.foot {
+    background: hsla(0, 0%, 100%, 0.55);
+    backdrop-filter: blur(30px);
 }

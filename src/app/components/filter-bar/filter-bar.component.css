@@ -74,33 +74,33 @@ button {
 .Star-Wars {
     background:black;
     color: yellow;
-    text-shadow: 2px 1px 2px yellow;
+    /* text-shadow: 2px 1px 2px yellow; */
     font-weight: 900;
 }
 
 .Marvel {
     background: red;
     color:white;
-    text-shadow: 1px 1px 1px white;
-    font-weight: 800;
+    /* text-shadow: 1px 1px 1px white; */
+    font-weight: 900;
 }
 
 .Pixar {
-    background:rgb(104, 104, 248);
-    text-shadow: 2px 2px 2px #0a0a0a;
+    background:#c0d4ef;
+    /* text-shadow: 2px 2px 2px #0a0a0a; */
 }
 
 .Disney-Channel {
     background: white;
     color:rgb(104, 104, 248);
-    text-shadow: 2px 2px 2px rgb(104, 104, 248);
+    /* text-shadow: 2px 2px 2px rgb(104, 104, 248); */
     text-wrap:wrap;
 }
 
 .Film-Disney {
     background:rgb(58, 58, 230);
     color:white;
-    text-shadow: 2px 2px 2px white;
+    /* text-shadow: 2px 2px 2px white; */
     
 }
 
@@ -108,7 +108,7 @@ button {
     background:white;
     color:rgb(241, 195, 95);
     font-weight: 700;
-    text-shadow: 2px 2px 2px #0a0a0a;
+    /* text-shadow: 2px 2px 2px #0a0a0a; */
     
 }
 
