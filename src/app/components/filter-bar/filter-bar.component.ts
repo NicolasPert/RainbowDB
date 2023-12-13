@@ -67,7 +67,7 @@ export class FilterBarComponent {
       if (this.checkedUnivers.length === this.universParents.length) {
         // ...et si toutes les cases sont déjà cochées, on réinitialise le tableau.
         this.checkedUnivers = [];
-        console.log('ici apres le = tableau vide ',this.checkedUnivers);
+        // console.log('ici apres le = tableau vide ',this.checkedUnivers);
       }
 
       this.checkedUnivers.push(target.value); // On ajoute la valeur de la case cochée au tableau.
@@ -107,7 +107,7 @@ export class FilterBarComponent {
       ); // ...on filtre le tableau pour retirer la valeur correspondante.
     }
 
-    console.log('filtres couleurs ici', this.checkedColors);
+    // console.log('filtres couleurs ici', this.checkedColors);
     this.colorsEnvoieParents.emit(this.checkedColors); // Émet un événement avec le tableau mis à jour.
   }
 }

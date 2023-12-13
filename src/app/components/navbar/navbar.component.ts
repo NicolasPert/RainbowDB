@@ -23,7 +23,7 @@ export class NavbarComponent {
     });
     this.userService.isConnected$.subscribe((resp) => {
       this.connected = resp;
-      console.log('connected', this.connected);
+      // console.log('connected', this.connected);
     });
   }
   deconnexion() {

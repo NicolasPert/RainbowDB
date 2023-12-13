@@ -43,7 +43,7 @@ export class SuppressionCharactersComponent {
     this.characterService.deleteCharacter(id).subscribe((response) => {
       
       this.router.navigate(['arc-en-ciel']);
-      console.log('le produit a bien été supprimé.' + response);
+      // console.log('le produit a bien été supprimé.' + response);
     });
   }
 

@@ -68,13 +68,13 @@ export class ModifierComponent {
       name: this.changeCharacter.get('movie')?.value,
     };
 
-    console.log('mes univers', this.changeCharacter.get('univers')?.value);
-    console.log('mes colors', this.changeCharacter.get('color')?.value);
+    // console.log('mes univers', this.changeCharacter.get('univers')?.value);
+    // console.log('mes colors', this.changeCharacter.get('color')?.value);
 
     this.moviesService.createMovies(movie).subscribe({
       next: (response) => {
         this.id_Movie = response.id!;
-        console.log(this.id_Movie);
+        // console.log(this.id_Movie);
         this.updateCharacter();
       },
     });
@@ -89,14 +89,14 @@ export class ModifierComponent {
      */
     const universOriginal = this.changeCharacter.get('univers')?.value;
     const universTransformé = universOriginal.map((id: number) => ({ id }));
-    console.log(`mes univers transformé`, universTransformé);
+    // console.log(`mes univers transformé`, universTransformé);
 
     const colorsOriginal = this.changeCharacter.get('color')?.value;
 
     const colorsTransformé = colorsOriginal
       .filter((id: number) => typeof id === 'number')
       .map((id: number) => ({ id }));
-    console.log('les couleurs transformées', colorsTransformé);
+    // console.log('les couleurs transformées', colorsTransformé);
 
     /**
      * Puis transférer ici une fois que toute est bon
@@ -108,15 +108,15 @@ export class ModifierComponent {
       to_own: colorsTransformé,
       picture: { id: newPhotoId },
     };
-    console.log('une photo avec id',newPhotoId);
-    console.log('le perso est', changeCharacter);
+    // console.log('une photo avec id',newPhotoId);
+    // console.log('le perso est', changeCharacter);
 
     const characterIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
     this.characterService
       .updateCharacter(characterIdFromRoute, changeCharacter)
       .subscribe((response) => {
         this.router.navigate(['/arc-en-ciel']);
-        console.log('Personnage modifié avec succès', response);
+        // console.log('Personnage modifié avec succès', response);
       });
   }
 
