@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateCharacter } from 'src/models/createCharacter';
 import { Character } from 'src/models/character';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +20,13 @@ export class CharacterService {
   }
 
   getCharacters(): Observable<Character[]> {
-    return this.http.get<Character[]>('http://localhost:3000/api/characters');
+    return this.http.get<Character[]>(`${environment.api}characters`);
   }
 
   createCharacter(character: CreateCharacter): Observable<Character> {
     const headers = this.setHeaders();
     return this.http.post<Character>(
-      `http://localhost:3000/api/characters`,
+      `${environment.api}characters`,
       character,
       { headers }
     );
@@ -34,8 +35,8 @@ export class CharacterService {
   getCharacterById(characterId: number): Observable<Character> {
     const headers = this.setHeaders();
     return this.http.get<Character>(
-      `http://localhost:3000/api/characters/${characterId}`,
-      { headers}
+      `${environment.api}characters/${characterId}`,
+      { headers }
     );
   }
 
@@ -45,7 +46,7 @@ export class CharacterService {
   ): Observable<CreateCharacter> {
     const headers = this.setHeaders();
     return this.http.patch<CreateCharacter>(
-      `http://localhost:3000/api/characters/${characterID}`,
+      `${environment.api}characters/${characterID}`,
       character,
       {
         headers,
@@ -57,7 +58,7 @@ export class CharacterService {
     // recup le token dans le sessionstorage
     const headers = this.setHeaders();
     return this.http.delete<Character>(
-      `http://localhost:3000/api/characters/${character.id}`,
+      `${environment.api}characters/${character.id}`,
       { headers }
     );
   }

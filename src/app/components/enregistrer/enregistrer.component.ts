@@ -1,18 +1,18 @@
-// Importation des modules nécessaires depuis Angular
+// Import necessary modules from Angular
 import { Component } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
-// Définition du composant Angular
+// Definition of the Angular component
 @Component({
   selector: 'app-enregistrer',
   templateUrl: './enregistrer.component.html',
   styleUrls: ['./enregistrer.component.css'],
 })
 export class EnregistrerComponent {
-  // Déclaration et initialisation d'un objet utilisateur
+  // Declaration and initialization of a user object
   user: User = {
     username: '',
     email: '',
@@ -22,31 +22,31 @@ export class EnregistrerComponent {
     to_likes: [],
   };
 
-  // Variables pour gérer les erreurs de confirmation de mot de passe et l'état de l'inscription
+  // Variables to manage password confirmation errors and registration status
   confirmMdpError = false;
   inscriptionOK = true;
   isFormSubmit = false;
 
-  // Constructeur du composant avec injection de dépendances
+  // Component constructor with dependency injection
   constructor(private userService: UserService, private router: Router) {}
 
-  // Méthode appelée lors de la soumission du formulaire d'inscription
+  // Method called when the registration form is submitted
   inscrire(inscriptionForm: NgForm) {
     this.isFormSubmit = true;
 
-    // Vérification si les mots de passe correspondent
+    // Check if passwords match
     this.confirmMdpError = this.user.password !== this.user.password_validate;
 
-    // Vérification de la validité du formulaire et de l'absence d'erreur de confirmation de mot de passe
+    // Check the validity of the form and absence of password confirmation error
     if (inscriptionForm.valid && !this.confirmMdpError) {
-      // Si tous les champs sont valides, envoi de la demande d'inscription au service utilisateur
+      // If all fields are valid, send the registration request to the user service
       this.userService.inscriptionUtilisateur(this.user).subscribe({
         next: (response) => {
-          // Redirection vers la page de connexion après une inscription réussie
+          // Redirect to the login page after successful registration
           this.router.navigate(['../Connexion']);
         },
         error: (error) => {
-          // Gestion des erreurs lors de l'inscription
+          // Handle errors during registration
           this.inscriptionOK = false;
         },
       });

@@ -6,9 +6,9 @@ import { ColorsService } from 'src/app/services/colors.service';
 import { MoviesService } from 'src/app/services/movies.service';
 import { PictureService } from 'src/app/services/picture.service';
 import { UniversService } from 'src/app/services/univers.service';
+import { CreateCharacter } from 'src/models/createCharacter';
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
-import { CreateCharacter } from 'src/models/createCharacter';
 import { Movie } from 'src/models/movie';
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
@@ -130,7 +130,7 @@ export class ModifierComponent {
         .postPicture(formData)
         .subscribe((photo: Partial<Picture>) => {
           this.id_file = photo.id!;
-          alert('image postée');
+          // alert('image postée');
         });
     }
   }

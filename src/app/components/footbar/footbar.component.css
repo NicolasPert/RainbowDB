@@ -1,8 +1,3 @@
-.text-left {
-    display: flex;
-    justify-content: start;
-}
-
 .text {
     color: #064BA6;
 }

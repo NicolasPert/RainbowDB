@@ -4,25 +4,26 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../../models/user';
 import { LoginUser } from '../../models/loginUser';
 import { ReponseConnexion } from '../../models/responseConnexion';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   charBefore!: User;
-  private baseApiUrl = 'http://localhost:3000/api';
+  private baseApiUrl = `${environment.api}`;
   public isAdmin$ = new BehaviorSubject<boolean>(
     JSON.parse(sessionStorage.getItem('isAdmin')!)
   );
   public isConnected$: BehaviorSubject<boolean>;
 
-  constructor(private http: HttpClient,) {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-          this.isConnected$ = new BehaviorSubject(true);
-        } else {
-          this.isConnected$ = new BehaviorSubject(false);
-        }
+  constructor(private http: HttpClient) {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.isConnected$ = new BehaviorSubject(true);
+    } else {
+      this.isConnected$ = new BehaviorSubject(false);
+    }
   }
 
   setHeaders() {
@@ -34,13 +35,13 @@ export class UserService {
   }
 
   inscriptionUtilisateur(data: User): Observable<User> {
-    return this.http.post<User>(`${this.baseApiUrl}/auth/register`, data);
+    return this.http.post<User>(`${this.baseApiUrl}auth/register`, data);
   }
 
   connexionUtilisateur(data: LoginUser): Observable<ReponseConnexion> {
     // console.log(`voici ma data :`, data);
     return this.http.post<ReponseConnexion>(
-      `${this.baseApiUrl}/auth/login`,
+      `${this.baseApiUrl}auth/login`,
       data
     );
   }
@@ -48,7 +49,7 @@ export class UserService {
   getUser(): Observable<User> {
     const headers = this.setHeaders();
     return this.http
-      .get<User>(`${this.baseApiUrl}/user/current`, { headers })
+      .get<User>(`${this.baseApiUrl}user/current`, { headers })
       .pipe(
         tap((user: User) => {
           sessionStorage.setItem('isAdmin', user.admin.toString());
@@ -65,7 +66,7 @@ export class UserService {
 
   getUserBy(): Observable<User> {
     const headers = this.setHeaders();
-    return this.http.get<User>(`${this.baseApiUrl}/user`, {
+    return this.http.get<User>(`${this.baseApiUrl}user`, {
       headers,
     });
   }
@@ -73,7 +74,7 @@ export class UserService {
   updateUser(user: User): Observable<User> {
     const headers = new HttpHeaders();
     const test = this.http.patch<User>(
-      `${this.baseApiUrl}/user/${user.id}`,
+      `${this.baseApiUrl}user/${user.id}`,
       { to_likes: user.to_likes },
       { headers }
     );

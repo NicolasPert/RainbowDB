@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { CreateMovies } from 'src/models/createMovies';
 import { Movie } from 'src/models/movie';
 
@@ -8,7 +9,7 @@ import { Movie } from 'src/models/movie';
   providedIn: 'root',
 })
 export class MoviesService {
-  apiUrl = 'http://localhost:3000/api/movies';
+  apiUrl = `${environment.api}movies`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,7 @@ export class MoviesService {
 
   createMovies(movies: CreateMovies): Observable<Movie> {
     const headers = this.setHeaders();
-    return this.http.post<Movie>(`http://localhost:3000/api/movies`, movies, {
+    return this.http.post<Movie>(`${environment.api}movies`, movies, {
       headers,
     });
   }
@@ -30,28 +31,27 @@ export class MoviesService {
   updateMovies(movieId: number, movies: CreateMovies): Observable<Movie> {
     const headers = this.setHeaders();
     return this.http.patch<Movie>(
-      `http://localhost:3000/api/characters/${movieId}`,
+      `${environment.api}characters/${movieId}`,
       movies,
       { headers }
     );
   }
 
   getMovie(): Observable<Movie> {
-    return this.http.get<Movie>('http://localhost:3000/api/movies');
+    return this.http.get<Movie>(`${environment.api}movies`);
   }
 
   getMovieIdByName(movieName: string): Observable<number> {
     return this.http.get<number>(
-      `http://localhost:3000/api/movies/id?name=${movieName}`
+      `${environment.api}movies/id?name=${movieName}`
     );
   }
 
   deleteMovie(movieId: string): Observable<Movie> {
     // recup le token dans le sessionstorage
     const headers = this.setHeaders();
-    return this.http.delete<Movie>(
-      `http://localhost:3000/api/movies/${movieId}`,
-      { headers }
-    );
+    return this.http.delete<Movie>(`${environment.api}movies/${movieId}`, {
+      headers,
+    });
   }
 }

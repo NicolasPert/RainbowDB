@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Univer } from 'src/models/univer';
 
 @Injectable({
@@ -18,19 +19,17 @@ export class UniversService {
   }
 
   getUnivers(): Observable<Univer[]> {
-    return this.http.get<Univer[]>('http://localhost:3000/api/univers');
+    return this.http.get<Univer[]>(`${environment.api}univers`);
   }
 
   getUniversById(universId: number): Observable<Univer> {
-    return this.http.get<Univer>(
-      `http://localhost:3000/api/character/${universId}`
-    );
+    return this.http.get<Univer>(`${environment.api}character/${universId}`);
   }
 
   updateUnivers(universId: number, univers: Univer): Observable<Univer> {
     const headers = this.setHeaders();
     return this.http.patch<Univer>(
-      `http://localhost:3000/api/characters/${universId}`,
+      `${environment.api}characters/${universId}`,
       univers,
       { headers }
     );
