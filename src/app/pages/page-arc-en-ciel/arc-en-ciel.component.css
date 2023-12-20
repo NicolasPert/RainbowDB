@@ -2,7 +2,6 @@
 
 .containerComponent {
     display: flex;
-    gap: 4rem;
 }
 
 .filter {
@@ -13,6 +12,11 @@
     left: 0;
     padding: 4rem 0 0 5rem;
 }
+
+/* .move {
+    position: relative;
+    left: 5.6rem;
+} */
 
 @media only screen and (max-width: 48rem) {
     .padding {
