@@ -14,7 +14,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { MentionLegalComponent } from './components/mention-legal/mention-legal.component';
 import { EnregistrerComponent } from './components/enregistrer/enregistrer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AdminComponent } from './pages/page-admin/admin.component';
 import { ConnexionComponent } from './components/connexion/connexion.component';
@@ -24,35 +24,28 @@ import { SuppressionCharactersComponent } from './components/suppression-charact
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    PageNotFoundComponent,
-    PageHomeComponent,
-    ArcEnCielComponent,
-    ConnexionComponent,
-    FootbarComponent,
-    FilterBarComponent,
-    SearchBarComponent,
-    MentionLegalComponent,
-    EnregistrerComponent,
-    AdminComponent,
-    AjouterComponent,
-    ModifierComponent,
-    CardsComponent,
-    SuppressionCharactersComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    NgSelectModule,
-    ReactiveFormsModule,
-    CommonModule,
-  ],
-  providers: [UserService],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavbarComponent,
+        PageNotFoundComponent,
+        PageHomeComponent,
+        ArcEnCielComponent,
+        ConnexionComponent,
+        FootbarComponent,
+        FilterBarComponent,
+        SearchBarComponent,
+        MentionLegalComponent,
+        EnregistrerComponent,
+        AdminComponent,
+        AjouterComponent,
+        ModifierComponent,
+        CardsComponent,
+        SuppressionCharactersComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        NgSelectModule,
+        ReactiveFormsModule,
+        CommonModule], providers: [UserService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
