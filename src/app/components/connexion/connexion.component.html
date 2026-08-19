@@ -18,16 +18,9 @@
   <div class="mb-5">
     <form (ngSubmit)="onSubmitForm()" [formGroup]="userForm" >
       <div class="form-group mb-3">
-  <label
-    >Email
-  </label>
-    <input id="email" name="email" formControlName="email" type="email" class="form-control shadow-sm ms-auto me-auto"/>
+    <input id="email" name="email" formControlName="email" type="email" placeholder="mon@email.fr" class="form-control shadow-sm ms-auto me-auto"/>
 
-
-  <label
-    >Mot de Passe
-  </label>
-    <input id="password" name="password" class="form-control shadow-sm ms-auto me-auto phone" formControlName="password" type="password" />
+    <input id="password" name="password" placeholder="Mot de passe" class="form-control shadow-sm ms-auto me-auto phone" formControlName="password" type="password" />
   </div>
 
   

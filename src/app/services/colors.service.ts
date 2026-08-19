@@ -25,9 +25,9 @@ export class ColorsService {
   updateColors(colorId: number, color: Color): Observable<Color> {
     const headers = this.setHeaders();
     return this.http.patch<Color>(
-      `${environment.api}characters/${colorId}`,
+      `${environment.api}colors/${colorId}`,
       color,
-      { headers }
+      { headers },
     );
   }
 }

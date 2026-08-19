@@ -1,4 +1,15 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  inject,
+  DestroyRef,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
@@ -6,13 +17,22 @@ import { PictureService } from 'src/app/services/picture.service';
 import { UniversService } from 'src/app/services/univers.service';
 import { UserService } from 'src/app/services/user.service';
 import { Character } from 'src/models/character';
-
 import { Picture } from 'src/models/picture';
 import { Univer } from 'src/models/univer';
 import { User } from 'src/models/user';
+import { SearchBarComponent } from 'src/app/components/search-bar/search-bar.component';
+import { FilterBarComponent } from 'src/app/components/filter-bar/filter-bar.component';
+import { CardsComponent } from 'src/app/components/cards/cards.component';
 
 @Component({
   selector: 'app-arc-en-ciel',
+  standalone: true,
+  imports: [
+    CommonModule,
+    SearchBarComponent,
+    FilterBarComponent,
+    CardsComponent,
+  ],
   templateUrl: './arc-en-ciel.component.html',
   styleUrls: ['./arc-en-ciel.component.css'],
 })
@@ -39,6 +59,7 @@ export class ArcEnCielComponent {
   estFavoris!: boolean;
   favoriteOfNotFavorite: boolean = false;
 
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private characterService: CharacterService,
@@ -46,51 +67,66 @@ export class ArcEnCielComponent {
     private userService: UserService,
     private pictureService: PictureService,
     private colorsService: ColorsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     // console.log('mon user est-il là ?', this.userPourMaFilterBar);
     // console.log('commentaire', this.userService.isLoggedIn());
     if (this.userService.isLoggedIn()) {
-      this.userService.getUser().subscribe((user) => {
-        this.users = user;
-        this.characterService.getCharacters().subscribe((characters) => {
+      this.userService
+        .getUser()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((user) => {
+          this.users = user;
+          this.characterService
+            .getCharacters()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((characters) => {
+              // Récupération des personnages depuis le service
+              this.characterToDisplay = characters;
+              this.allCharacters = characters;
+              this.character = characters[0];
+              // Crée une copie du tableau des personnages pour la comparaison.
+              // initialiser ici la valeur de estFavoris
+              // Si le personnage est trouvé dans le tableau de like du user => true sinon false
+            });
+        });
+    } else {
+      this.characterService
+        .getCharacters()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((characters) => {
           // Récupération des personnages depuis le service
           this.characterToDisplay = characters;
           this.allCharacters = characters;
-          this.character = characters[0];
           // Crée une copie du tableau des personnages pour la comparaison.
           // initialiser ici la valeur de estFavoris
-          // Si le personnage est trouvé dans le tableau de like du user => true sinon false
+          // console.log('mes characters', characters);
+          // console.log('mes perso', this.allCharacters);
         });
-      });
-    } else {
-      this.characterService.getCharacters().subscribe((characters) => {
-        // Récupération des personnages depuis le service
-        this.characterToDisplay = characters;
-        this.allCharacters = characters;
-        // Crée une copie du tableau des personnages pour la comparaison.
-        // initialiser ici la valeur de estFavoris
-        // console.log('mes characters', characters);
-        // console.log('mes perso', this.allCharacters);
-      });
     }
 
-    this.universService.getUnivers().subscribe((univers) => {
-      // console.log('univers : ', univers);
-      // Récupération des univers depuis le service
-      for (let i = 0; i < univers.length; i++) {
-        this.universToDisplay[i] = univers[i].name;
-      }
-      // console.log(this.universToDisplay);
-    });
+    this.universService
+      .getUnivers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((univers) => {
+        // console.log('univers : ', univers);
+        // Récupération des univers depuis le service
+        for (let i = 0; i < univers.length; i++) {
+          this.universToDisplay[i] = univers[i].name;
+        }
+        // console.log(this.universToDisplay);
+      });
 
-    this.colorsService.getColors().subscribe((colors) => {
-      for (let i = 0; i < colors.length; i++) {
-        this.colorsToDisplay[i] = colors[i].name;
-      }
-    });
+    this.colorsService
+      .getColors()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((colors) => {
+        for (let i = 0; i < colors.length; i++) {
+          this.colorsToDisplay[i] = colors[i].name;
+        }
+      });
   }
 
   estFavori(character: Character) {
@@ -134,7 +170,7 @@ export class ArcEnCielComponent {
     this.userInput = resultUserSearch;
 
     this.characterToDisplay = this.allCharacters.filter((c) =>
-      c.name.toLowerCase().includes(this.userInput.toLowerCase())
+      c.name.toLowerCase().includes(this.userInput.toLowerCase()),
     );
 
     this.onUserInteractionFiltre();
@@ -150,7 +186,7 @@ export class ArcEnCielComponent {
 
       if (this.favoriteOfNotFavorite) {
         this.characterToDisplay = this.characterToDisplay.filter((character) =>
-          favorisIds.includes(character.id)
+          favorisIds.includes(character.id),
         );
       }
       if (this.universChecked) {
@@ -184,7 +220,7 @@ export class ArcEnCielComponent {
 
       if (this.userInput) {
         this.characterToDisplay = this.characterToDisplay.filter((c) =>
-          c.name.toLowerCase().includes(this.userInput.toLowerCase())
+          c.name.toLowerCase().includes(this.userInput.toLowerCase()),
         );
       }
       // console.log('mes perso triés : ', this.characterToDisplay);
@@ -220,7 +256,7 @@ export class ArcEnCielComponent {
 
       if (this.userInput) {
         this.characterToDisplay = this.characterToDisplay.filter((c) =>
-          c.name.toLowerCase().includes(this.userInput.toLowerCase())
+          c.name.toLowerCase().includes(this.userInput.toLowerCase()),
         );
       }
     }
@@ -257,13 +293,13 @@ export class ArcEnCielComponent {
     // Début de notre méthode, si :
     if (!objetRecu.isFavoris) {
       // Le character est dans les favoris, supprimez-le
-      (this.users.to_likes = this.users.to_likes.filter(
-        (t) => t.id !== characterId
+      ((this.users.to_likes = this.users.to_likes.filter(
+        (t) => t.id !== characterId,
       )),
         this.userService.updateUser(this.users).subscribe(() => {
           this.users = { ...this.users };
           // Avec l'argument, on envoie donc False
-        });
+        }));
     } else {
       // Le character n'est pas dans les favoris, on l'ajoute
       this.users.to_likes = [...this.users.to_likes, objetRecu.character];
@@ -276,5 +312,3 @@ export class ArcEnCielComponent {
     }
   }
 }
-
-

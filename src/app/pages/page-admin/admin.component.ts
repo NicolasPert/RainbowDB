@@ -3,9 +3,18 @@ import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { UniversService } from 'src/app/services/univers.service';
 import { Color } from 'src/models/color';
+import { AjouterComponent } from 'src/app/components/ajouter-characters/ajouter-characters.component';
+import { ModifierComponent } from 'src/app/components/modifier-characters/modifier.component';
+import { SuppressionCharactersComponent } from 'src/app/components/suppression-characters/suppression-characters.component';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
+  imports: [
+    AjouterComponent,
+    ModifierComponent,
+    SuppressionCharactersComponent,
+  ],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
 })
@@ -17,7 +26,7 @@ export class AdminComponent {
     private characterService: CharacterService,
     private universService: UniversService,
     // private userService: UserService,
-    private colorsService: ColorsService
+    private colorsService: ColorsService,
   ) {}
 
   ngOnInit() {
@@ -30,7 +39,6 @@ export class AdminComponent {
     //   }
     //   // console.log(this.universToDisplay);
     // });
-
     // this.colorsService.getColors().subscribe((colors) => {
     //   for (let i = 0; i < colors.length; i++) {
     //     this.colorsToDisplay[i] = colors[i].name;

@@ -31,9 +31,9 @@ export class MoviesService {
   updateMovies(movieId: number, movies: CreateMovies): Observable<Movie> {
     const headers = this.setHeaders();
     return this.http.patch<Movie>(
-      `${environment.api}characters/${movieId}`,
+      `${environment.api}movies/${movieId}`,
       movies,
-      { headers }
+      { headers },
     );
   }
 
@@ -43,7 +43,7 @@ export class MoviesService {
 
   getMovieIdByName(movieName: string): Observable<number> {
     return this.http.get<number>(
-      `${environment.api}movies/id?name=${movieName}`
+      `${environment.api}movies/id?name=${movieName}`,
     );
   }
 

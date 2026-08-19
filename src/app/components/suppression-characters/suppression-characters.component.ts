@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CharacterService } from 'src/app/services/character.service';
 import { Character } from 'src/models/character';
 import { User } from 'src/models/user';
 import { Picture } from 'src/models/picture';
 
-
 @Component({
   selector: 'app-suppression-characters',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './suppression-characters.component.html',
   styleUrls: ['./suppression-characters.component.css'],
 })
 export class SuppressionCharactersComponent {
- utilisateur!: User;
+  utilisateur!: User;
   character: Character = {
     id: 1,
     name: '',
-    picture: { id: 1, name: '', size: 1, description:'', mimetype: ''},
+    picture: { id: 1, name: '', size: 1, description: '', mimetype: '' },
     to_in: [],
     belong: [],
     to_own: [],
@@ -25,7 +27,7 @@ export class SuppressionCharactersComponent {
   constructor(
     private characterService: CharacterService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -41,11 +43,8 @@ export class SuppressionCharactersComponent {
 
   deleteCharacter(id: Character) {
     this.characterService.deleteCharacter(id).subscribe((response) => {
-      
       this.router.navigate(['arc-en-ciel']);
       // console.log('le produit a bien été supprimé.' + response);
     });
   }
-
-  
 }

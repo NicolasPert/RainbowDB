@@ -23,15 +23,15 @@ export class UniversService {
   }
 
   getUniversById(universId: number): Observable<Univer> {
-    return this.http.get<Univer>(`${environment.api}character/${universId}`);
+    return this.http.get<Univer>(`${environment.api}univers/${universId}`);
   }
 
   updateUnivers(universId: number, univers: Univer): Observable<Univer> {
     const headers = this.setHeaders();
     return this.http.patch<Univer>(
-      `${environment.api}characters/${universId}`,
+      `${environment.api}univers/${universId}`,
       univers,
-      { headers }
+      { headers },
     );
   }
 }

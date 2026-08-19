@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^22.1.2",
+    "@angular/cdk": "^22.1.2",
     "@angular/common": "^22.1.2",
     "@angular/compiler": "^22.1.2",
     "@angular/core": "^22.1.2",
@@ -24,7 +25,7 @@
     "rainbow-db": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.10"
+    "zone.js": "^0.16.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^22.1.4",
@@ -38,6 +39,11 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.5"
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "image-size": "^2.0.2",
+    "uuid": "^11.1.1",
+    "less": "^4.9.0"
   }
 }

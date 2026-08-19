@@ -1,13 +1,16 @@
 // Import necessary modules from Angular
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { User } from '../../../models/user';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 
 // Definition of the Angular component
 @Component({
   selector: 'app-enregistrer',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './enregistrer.component.html',
   styleUrls: ['./enregistrer.component.css'],
 })
@@ -28,7 +31,10 @@ export class EnregistrerComponent {
   isFormSubmit = false;
 
   // Component constructor with dependency injection
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
 
   // Method called when the registration form is submitted
   inscrire(inscriptionForm: NgForm) {

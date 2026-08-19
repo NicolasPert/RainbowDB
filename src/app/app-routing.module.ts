@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageHomeComponent } from './pages/page-home/page-home.component';
 import { ArcEnCielComponent } from './pages/page-arc-en-ciel/arc-en-ciel.component';
@@ -10,13 +9,13 @@ import { SuppressionCharactersComponent } from './components/suppression-charact
 import { ModifierComponent } from './components/modifier-characters/modifier.component';
 import { MentionLegalComponent } from './components/mention-legal/mention-legal.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: PageHomeComponent },
   { path: 'arc-en-ciel', component: ArcEnCielComponent },
   { path: 'page-admin/ajouter-characters', component: AjouterComponent },
   { path: 'page-admin/modifier-characters/:id', component: ModifierComponent },
-  { path: 'mentions-legales', component: MentionLegalComponent},
+  { path: 'mentions-legales', component: MentionLegalComponent },
   {
     path: 'page-admin/suppression-characters/:id',
     component: SuppressionCharactersComponent,
@@ -25,9 +24,3 @@ const routes: Routes = [
   { path: 'Connexion', component: ConnexionComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

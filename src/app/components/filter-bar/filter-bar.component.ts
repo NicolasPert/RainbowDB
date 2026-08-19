@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { filter } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { Character } from 'src/models/character';
 import { Color } from 'src/models/color';
-import { CommonModule } from '@angular/common';
 import { User } from 'src/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-filter-bar',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.css'],
 })
@@ -74,7 +75,7 @@ export class FilterBarComponent {
     } else {
       // Si la case à cocher est décochée...
       this.checkedUnivers = this.checkedUnivers.filter(
-        (univers) => univers !== target.value
+        (univers) => univers !== target.value,
       ); // ...on filtre le tableau pour retirer la valeur correspondante.
     }
 
@@ -103,7 +104,7 @@ export class FilterBarComponent {
     } else {
       // Si la case à cocher est décochée...
       this.checkedColors = this.checkedColors.filter(
-        (couleur) => couleur !== target.value
+        (couleur) => couleur !== target.value,
       ); // ...on filtre le tableau pour retirer la valeur correspondante.
     }
 

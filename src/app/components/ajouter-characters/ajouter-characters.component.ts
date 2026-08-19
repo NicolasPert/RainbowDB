@@ -1,13 +1,22 @@
 // Importation des modules nécessaires depuis Angular et d'autres modules personnalisés
-import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-  FormsModule,
+  Component,
+  ElementRef,
+  ViewChild,
+  inject,
+  DestroyRef,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
+import {
+  ReactiveFormsModule,
   FormControl,
   FormGroup,
   Validators,
   FormArray,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -22,6 +31,8 @@ import { Univer } from 'src/models/univer';
 // Définition du composant Angular
 @Component({
   selector: 'app-ajouter',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, NgSelectModule],
   templateUrl: './ajouter-characters.component.html',
   styleUrls: ['./ajouter-characters.component.css'],
 })
@@ -43,6 +54,8 @@ export class AjouterComponent {
     color: new FormControl([]),
   });
 
+  private destroyRef = inject(DestroyRef);
+
   // Constructeur du composant avec injection de dépendances
   constructor(
     private characterService: CharacterService,
@@ -50,27 +63,36 @@ export class AjouterComponent {
     private router: Router,
     private colorsService: ColorsService,
     private moviesService: MoviesService,
-    private universService: UniversService
+    private universService: UniversService,
   ) {}
 
   // Fonction exécutée lors de l'initialisation du composant
   ngOnInit(): void {
     // Récupération des personnages depuis le service
-    this.characterService.getCharacters().subscribe({
-      next: (response: Character[]) => {
-        this.character = [...response];
-      },
-    });
+    this.characterService
+      .getCharacters()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response: Character[]) => {
+          this.character = [...response];
+        },
+      });
 
     // Récupération des couleurs depuis le service
-    this.colorsService.getColors().subscribe((colors: Color[]) => {
-      this.colorsAvailable = colors;
-    });
+    this.colorsService
+      .getColors()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((colors: Color[]) => {
+        this.colorsAvailable = colors;
+      });
 
     // Récupération des univers depuis le service
-    this.universService.getUnivers().subscribe((univers: Univer[]) => {
-      this.universAvailable = univers;
-    });
+    this.universService
+      .getUnivers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((univers: Univer[]) => {
+        this.universAvailable = univers;
+      });
   }
 
   // Fonction appelée lors de la soumission du formulaire

@@ -1,6 +1,14 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { CharacterService } from 'src/app/services/character.service';
 import { ColorsService } from 'src/app/services/colors.service';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -15,6 +23,8 @@ import { Univer } from 'src/models/univer';
 
 @Component({
   selector: 'app-modifier',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, NgSelectModule],
   templateUrl: './modifier.component.html',
   styleUrls: ['./modifier.component.css'],
 })
@@ -34,6 +44,8 @@ export class ModifierComponent {
     color: new FormControl('', Validators.required),
   });
 
+  private destroyRef = inject(DestroyRef);
+
   constructor(
     private characterService: CharacterService,
     private pictureService: PictureService,
@@ -41,7 +53,7 @@ export class ModifierComponent {
     private colorsService: ColorsService,
     private moviesService: MoviesService,
     private universService: UniversService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -50,17 +62,24 @@ export class ModifierComponent {
 
     this.characterService
       .getCharacterById(charactersIdFromRoute)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((char) => {
         this.character = char;
       });
 
-    this.colorsService.getColors().subscribe((colors: Color[]) => {
-      this.colorsAvailable = colors;
-    });
+    this.colorsService
+      .getColors()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((colors: Color[]) => {
+        this.colorsAvailable = colors;
+      });
 
-    this.universService.getUnivers().subscribe((univers: Univer[]) => {
-      this.universAvailable = univers;
-    });
+    this.universService
+      .getUnivers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((univers: Univer[]) => {
+        this.universAvailable = univers;
+      });
   }
 
   onSubmit() {

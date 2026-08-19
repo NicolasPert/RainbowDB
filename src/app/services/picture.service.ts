@@ -31,7 +31,7 @@ export class PictureService {
 
   deletePicture(id: number) {
     const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     });
     return this.http.delete(`${environment.api}pictures/${id}`, {
       headers: headers,
